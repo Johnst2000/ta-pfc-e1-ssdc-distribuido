@@ -14,7 +14,7 @@ Evolución del **Sistema de Selección Docente y Convocatorias (SSDC)** de la Un
 | Silva Triviño John Jairo | Johnst2000 | Líder de Desarrollo |
 | Herrera Barco Humberto Aldair | aldhair00 | Responsable de Documentación |
 | Reinoso Vélez Eduardo David | ereinosov | Arquitecto |
-| Calderón Saltos Joseph Alexander | Yukisan-uwo | Responsable de Calidad |
+| Calderón Saltos Joseph Alexander | JosephACS | Responsable de Calidad |
 
 ## Estructura del repositorio
 
