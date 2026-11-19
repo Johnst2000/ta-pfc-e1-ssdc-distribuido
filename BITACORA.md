@@ -14,7 +14,6 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 - Se crea este repositorio público nuevo; no se usa CHRSweb como repositorio de entrega.
 - Roles propuestos: Líder de Desarrollo (John), Responsable de Documentación (Aldair), Arquitecto (Eduardo) y Responsable de Calidad (Joseph). Quedan pendientes de confirmación del grupo.
 - FORM-TL-02 y FORM-IC-01 no se consideran requisito, según la respuesta del docente en el grupo de WhatsApp.
-- Para los riesgos de FORM-AC-01, cada integrante usará el incidente que analizó en su equipo, citando el informe oficial de su caso (el docente lo aceptó).
+- Para los riesgos de FORM-AC-01, cada integrante usará el incidente que analizó en su equipo, citando el informe oficial de su caso.
 
-**Problemas detectados**
-- El repositorio CHRSweb tiene secretos en texto plano en `application.properties` y una carpeta `uploads/` con archivos de cédulas. No se copian a este repositorio y se avisará a quien administra CHRSweb.
+
