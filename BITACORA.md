@@ -17,3 +17,10 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 - Para los riesgos de FORM-AC-01, cada integrante usará el incidente que analizó en su equipo, citando el informe oficial de su caso.
 
 
+## 18 de noviembre de 2026 — Plantilla de ADR
+
+**Registrado por:** Eduardo Reinoso Vélez
+**Presentes:** Eduardo Reinoso Vélez
+
+**Trabajo realizado**
+- Se agrega `docs/adr/PLANTILLA-ADR.md` con los cuatro apartados que pide la tarea (contexto, opciones, decisión y consecuencias), para usarla en el ADR-001 y el ADR-002.
