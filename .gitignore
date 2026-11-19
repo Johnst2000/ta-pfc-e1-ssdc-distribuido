@@ -1,0 +1,35 @@
+# Secretos y datos personales: NUNCA se suben al repositorio
+.env
+*.env
+secrets/
+*.pem
+*.key
+**/uploads/
+
+# LaTeX (el main.pdf compilado SÍ se sube)
+*.aux
+*.log
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Java / Maven
+target/
+*.class
+
+# Node / Angular
+node_modules/
+dist/
+
+# IDE y sistema
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
