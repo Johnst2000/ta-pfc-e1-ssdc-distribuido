@@ -1,0 +1,107 @@
+% =====================================================================
+% TA-PFC-E1 — SSDC distribuido — Equipo CHRS
+% Compilar desde la carpeta docs/:
+%   pdflatex main  ->  biber main  ->  pdflatex main  ->  pdflatex main
+% =====================================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- Idioma y codificación ---------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+\usepackage{lmodern}
+\usepackage{csquotes}
+
+% --- Página ------------------------------------------------------------
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% --- Tablas, figuras y listas ------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figuras/}{diagramas/}}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+\usepackage{enumitem}
+
+% --- Bibliografía (IEEE con biblatex + biber) --------------------------
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{referencias.bib}
+
+% --- Enlaces (cargar al final) -----------------------------------------
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+% --- Datos del proyecto ------------------------------------------------
+\newcommand{\proyecto}{SSDC distribuido} % nombre final a decidir
+\newcommand{\repo}{https://github.com/Johnst2000/ta-pfc-e1-ssdc-distribuido}
+\newcommand{\fechaentrega}{21 de noviembre de 2026}
+
+\begin{document}
+
+% ================================ PORTADA ==============================
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+  \centering
+  {\large UNIVERSIDAD TÉCNICA ESTATAL DE QUEVEDO\par}
+  \vspace{0.3cm}
+  {\large Facultad de Ciencias de la Computación\par}
+  \vspace{2cm}
+  {\Large\bfseries TA-PFC-E1: Definición, requisitos y arquitectura base\par}
+  \vspace{0.5cm}
+  {\LARGE\bfseries \proyecto\par}
+  \vspace{2cm}
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Integrante} & \textbf{Rol} \\
+    \midrule
+    Calderón Saltos Joseph            & Responsable de Calidad \\
+    Herrera Barco Humberto Aldair     & Responsable de Documentación \\
+    Reinoso Vélez Eduardo David       & Arquitecto \\
+    Silva Triviño John Jairo          & Líder de Desarrollo \\
+    \bottomrule
+  \end{tabular}
+  \vfill
+  \begin{tabular}{rl}
+    \textbf{Equipo:}            & CHRS \\
+    \textbf{Asignatura:}        & Aplicaciones Distribuidas (ISR-701) \\
+    \textbf{Paralelo:}          & A \\
+    \textbf{Periodo académico:} & SPA 2026--2027 \\
+    \textbf{Fecha de entrega:}  & \fechaentrega \\
+  \end{tabular}
+  \vspace{1cm}
+
+  \textbf{Repositorio:}\\
+  \url{\repo}
+\end{titlepage}
+\hypersetup{pageanchor=true}
+
+\tableofcontents
+\newpage
+
+% =============================== CONTENIDO =============================
+\input{secciones/01_resumen}
+\input{secciones/02_contexto}
+\input{secciones/03_objetivos}
+\input{secciones/04_relacionados}
+
+\section{Requisitos}
+\input{secciones/05_requisitos_rf}
+\input{secciones/06_requisitos_rnf}
+
+\input{secciones/07_justificacion}
+\input{secciones/08_arquitectura}
+\input{secciones/09_comunicacion}
+\input{secciones/10_cap_pacelc}
+\input{secciones/11_adr}
+\input{secciones/12_riesgos}
+\input{secciones/13_plan}
+\input{secciones/14_aportes_ia}
+
+% ============================== REFERENCIAS ============================
+\printbibliography[heading=bibintoc,title={Referencias}]
+
+\end{document}
