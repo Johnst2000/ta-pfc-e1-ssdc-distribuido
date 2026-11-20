@@ -1,0 +1,17 @@
+# Esqueleto del SSDC distribuido: dos servicios que se comunican por HTTP.
+services:
+  notificaciones:
+    build: ./notificaciones
+    container_name: ssdc-notificaciones
+    ports:
+      - "8082:8082"
+
+  convocatorias:
+    build: ./convocatorias
+    container_name: ssdc-convocatorias
+    environment:
+      NOTIFICACIONES_URL: http://notificaciones:8082
+    ports:
+      - "8081:8081"
+    depends_on:
+      - notificaciones
