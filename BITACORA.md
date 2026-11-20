@@ -34,3 +34,15 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 - Se agrega `docs/secciones/12_riesgo_R4.tex` con la fila R4 del análisis de riesgos, basada en el incidente de Amazon S3 (28 de febrero de 2017).
 - Se comprobó en el repositorio CHRSweb que `spring.jpa.hibernate.ddl-auto=update` está activo (línea 56 de `application.properties`).
 - Uso de IA: Claude (Sonnet 5.5) para verificar el dato en el código y el informe de AWS.
+
+
+## 19 de noviembre de 2026 — Criterios de calidad
+
+**Registrado por:** Joseph Calderón Saltos
+**Presentes:** Joseph Calderón Saltos
+
+**Trabajo realizado**
+- Agregué `docs/secciones/06_requisitos_rnf.tex` con cuatro requisitos de calidad propuestos y sus criterios de aceptación y verificación.
+- Dejé indicados los puntos que deben confirmarse después de la entrevista y cuando se defina la arquitectura.
+
+**Commit:** `e93b938` — Define criterios de calidad del SSDC
