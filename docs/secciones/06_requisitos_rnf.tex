@@ -1,0 +1,30 @@
+\subsection{Requisitos no funcionales y verificación}
+
+Los siguientes requisitos son propuestas iniciales para el SSDC distribuido. Se revisarán después de la entrevista y cuando se cierre la arquitectura. No se asignan tiempos ni volúmenes de uso sin datos que los respalden.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Requisitos de calidad propuestos para el esqueleto}
+\begin{tabularx}{\linewidth}{@{}p{1.1cm}p{2.8cm}XX@{}}
+\toprule
+\textbf{ID} & \textbf{Requisito} & \textbf{Criterio de aceptación} & \textbf{Verificación} \\
+\midrule
+RNF-01 & Control de acceso &
+Una operación protegida solo se completa cuando la solicitud tiene autorización para ejecutarla. &
+Probar una solicitud sin autorización y otra con autorización; la primera se rechaza y la segunda obtiene la respuesta correspondiente. \\
+
+RNF-02 & Trazabilidad &
+Cada cambio de estado de una solicitud registra quién lo realizó, cuándo ocurrió y cuál fue el estado anterior y el nuevo. &
+Realizar un cambio y revisar que el registro conserve esos datos. \\
+
+RNF-03 & Persistencia &
+Una operación confirmada conserva su resultado aunque se reinicie el servicio que la atendió. &
+Crear o actualizar un registro, reiniciar el servicio y consultar nuevamente el resultado. \\
+
+RNF-04 & Manejo de fallos &
+Si un servicio necesario no responde, el sistema informa que la operación no se completó y no la presenta como exitosa. &
+Detener el servicio dependiente, enviar la solicitud y comprobar la respuesta y el estado del registro. \\
+\bottomrule
+\end{tabularx}
+\end{table}
