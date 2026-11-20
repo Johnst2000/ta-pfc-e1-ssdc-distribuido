@@ -1,0 +1,18 @@
+% Fila R4 del análisis de riesgos (Eduardo Reinoso, Arquitecto).
+% Se incluye desde 12_riesgos.tex con \input{secciones/12_riesgo_R4}
+\subsection{R4: cambio de esquema aplicado sin revisión}
+
+\begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
+  \item[Incidente de origen]
+    El 28 de febrero de 2017, en la región US-EAST-1, una persona del equipo de Amazon S3 ejecutó un comando para quitar unos pocos servidores del subsistema de facturación. Uno de los parámetros estaba mal escrito y el comando quitó muchos más, entre ellos servidores de los subsistemas de índice y de colocación. S3 dejó de atender solicitudes y tardó unas 4 h 17 min en volver a la normalidad\footnote{Informe de AWS sobre el evento: \url{https://aws.amazon.com/message/41926/}.}. Después, AWS hizo que la herramienta retire capacidad más despacio y le puso un mínimo por subsistema.
+  \item[Relación con el SSDC]
+    La herramienta aceptó una entrada equivocada y la ejecutó completa, sin un tope ni una confirmación. En CHRSweb el \texttt{application.properties} del backend tiene activa la línea \texttt{spring.jpa.hibernate.ddl-auto=update} (línea 56, versión del 27 de marzo de 2026). Con ella, Hibernate crea o altera tablas y columnas al arrancar, según las entidades, y nadie revisa ese cambio antes. No borra columnas, pero si varios servicios comparten la base, el que arranque primero puede dejar un esquema distinto del que esperan los demás.
+  \item[Probabilidad]
+    Media: cada despliegue con entidades modificadas aplica el cambio.
+  \item[Impacto]
+    Alto: el cambio llegaría a las tablas de postulaciones y de puntajes.
+  \item[Medida en E1]
+    Los servicios del esqueleto no modifican el esquema por su cuenta. La configuración queda en modo de solo validación y los cambios de esquema se aplican con scripts versionados en el repositorio.
+  \item[Verificación]
+    Se arranca un servicio con una entidad incompatible a propósito; debe negarse a iniciar y mostrar el error de validación. El resultado se anota en la bitácora.
+\end{description}

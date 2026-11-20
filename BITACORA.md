@@ -24,3 +24,13 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 
 **Trabajo realizado**
 - Se agrega `docs/adr/PLANTILLA-ADR.md` con los cuatro apartados que pide la tarea (contexto, opciones, decisión y consecuencias), para usarla en el ADR-001 y el ADR-002.
+
+## 19 de noviembre de 2026 — Fila de riesgo R4
+
+**Registrado por:** Eduardo Reinoso Vélez
+**Presentes:** Eduardo Reinoso Vélez
+
+**Trabajo realizado**
+- Se agrega `docs/secciones/12_riesgo_R4.tex` con la fila R4 del análisis de riesgos, basada en el incidente de Amazon S3 (28 de febrero de 2017).
+- Se comprobó en el repositorio CHRSweb que `spring.jpa.hibernate.ddl-auto=update` está activo (línea 56 de `application.properties`).
+- Uso de IA: Claude (Sonnet 5.5) para verificar el dato en el código y el informe de AWS.
