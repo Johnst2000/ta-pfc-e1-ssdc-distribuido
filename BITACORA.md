@@ -71,3 +71,14 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 
 
 **Commit:** `b2ec0a2` — Añadido estado preliminar de requisitos de calidad
+
+## 20 de noviembre de 2026 — Bosquejo, diagramas C4, ADR y justificación
+
+**Registrado por:** Eduardo Reinoso Vélez
+**Presentes:** Eduardo Reinoso Vélez
+
+**Trabajo realizado**
+- Se agrega `evidencias/bosquejo-arquitectura-1-2026-11-20.jpg`, el primer bosquejo a mano de la arquitectura (commit `6762d58`). Lo dibujó Eduardo a partir de una propuesta inicial de estructura redactada con ayuda de Claude. Es una propuesta individual, para discutir con el equipo.
+- Se agregan los diagramas C4 de contenedores (`6ce954d`) y de contexto (`1500c83`), en `.drawio` y PNG. El de contenedores es la versión limpia del bosquejo: los servicios que guardan datos tienen su propia base PostgreSQL, la comunicación entre `convocatorias` y `notificaciones` es HTTP como en el esqueleto, y la cola de mensajes queda como componente planeado, pendiente del ADR-002.
+- Se agregan el ADR-001 y la sección 07 (`a0a01d4`), y el ADR-002 con las secciones 08 y 11 (`74ecef5`). No incluyen mediciones ni cifras de la entrevista, que no estaban en el repositorio.
+- Uso de IA: Claude (Sonnet 5.5) propuso la estructura inicial, redactó los borradores de los ADR y de las secciones 07, 08 y 11, y generó los archivos `.drawio` de los diagramas. Eduardo dibujó el bosquejo a mano, y revisó y ajustó los borradores.
