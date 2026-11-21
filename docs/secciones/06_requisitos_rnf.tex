@@ -28,3 +28,36 @@ Detener el servicio dependiente, enviar la solicitud y comprobar la respuesta y 
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\subsubsection{Estado preliminar de verificación}
+
+Según lo documentado en el modelo de comunicación, el estado inicial de los requisitos es el siguiente. Los requisitos pendientes necesitan una comprobación cuando se definan la arquitectura y las pruebas del sistema.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Estado preliminar de los requisitos de calidad}
+\begin{tabularx}{\linewidth}{@{}p{1.1cm}p{1.7cm}XX@{}}
+\toprule
+\textbf{ID} & \textbf{Estado} & \textbf{Observación} & \textbf{Siguiente comprobación} \\
+\midrule
+RNF-01 & Pendiente &
+El esqueleto no implementa autenticación entre servicios. &
+Definir el mecanismo de autorización y probar solicitudes autorizadas y no autorizadas. \\
+
+RNF-02 & Pendiente &
+No se documenta un registro de auditoría para los cambios de estado. &
+Realizar un cambio y comprobar que se guarden el responsable, la fecha y los estados anterior y nuevo. \\
+
+RNF-03 & Pendiente &
+Los datos del esqueleto se mantienen en memoria y se pierden al reiniciar los servicios. &
+Guardar un registro, reiniciar el servicio y comprobar si el registro permanece disponible. \\
+
+RNF-04 & Parcial &
+Cuando el servicio de notificaciones no responde, la notificación queda pendiente y la convocatoria permanece publicada. &
+Distinguir en la respuesta el resultado de publicar la convocatoria del estado de la notificación. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Este estado es preliminar y deberá actualizarse cuando se definan la arquitectura y las pruebas del sistema.
