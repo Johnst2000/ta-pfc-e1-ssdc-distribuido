@@ -1,0 +1,17 @@
+\section{Justificación de la arquitectura distribuida}
+
+\subsection{Cómo funciona hoy el SSDC}
+
+El SSDC actual es un monolito en capas: un frontend Angular, un solo backend Spring Boot y una sola base PostgreSQL. En el repositorio CHRSweb, el backend tiene 324 archivos Java, 52 de ellos \texttt{*Controller.java}. Dentro del mismo proceso corren los programadores de respaldos (\texttt{Backup\allowbreak SchedulerService}) y de evaluación (\texttt{Proceso\allowbreak Evaluacion\allowbreak Scheduler}). El mismo backend llama a servicios de terceros: Groq, Hugging Face y Mistral para la IA, Supabase Storage para los documentos, Google Drive para los respaldos, el correo y un web service institucional. Su configuración activa \texttt{spring.jpa.\allowbreak hibernate.\allowbreak ddl-auto=update} (línea 56 de \texttt{application.properties}), de modo que cada arranque puede modificar el esquema de la única base.
+
+\subsection{Por qué un monolito no basta}
+
+Si el correo, la IA o Drive no responden, el fallo ocurre dentro del mismo proceso que atiende postulaciones y evaluaciones. El requisito RNF-04 pide que el sistema informe la falla sin dar la operación por exitosa y que el resto siga funcionando. Con servicios separados, cada dependencia externa queda detrás de un solo servicio.
+
+Hoy cualquier cambio obliga a reiniciar todo el backend. Con un servicio por módulo, uno se despliega sin tocar los demás. Lo mismo pasa con los programadores de respaldos y de evaluación: comparten proceso y recursos con las peticiones de los usuarios, y un error en uno puede afectar al resto.
+
+La configuración \texttt{ddl-auto=update} aplica los cambios de las entidades a la única base en cada arranque. Es el riesgo R4 del análisis de riesgos. Con una base por servicio, el efecto de un cambio de esquema queda en ese servicio.
+
+\subsection{Alcance de esta justificación}
+
+Lo anterior sale del código de CHRSweb y de los requisitos de la sección anterior. No usa volúmenes de uso ni número de usuarios simultáneos. Si la entrevista confirma picos de postulaciones cerca del cierre de una convocatoria, se agregará como argumento para escalar los servicios por separado. La decisión se registra en el ADR-001.
