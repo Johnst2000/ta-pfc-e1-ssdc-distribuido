@@ -46,3 +46,15 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 - Dejé indicados los puntos que deben confirmarse después de la entrevista y cuando se defina la arquitectura.
 
 **Commit:** `e93b938` — Define criterios de calidad del SSDC
+
+## 20 de noviembre de 2026 — Estado preliminar de requisitos de calidad
+
+**Registrado por:** Joseph Calderón Saltos  
+**Presentes:** Joseph Calderón Saltos
+
+**Trabajo realizado**
+- Se amplió `docs/secciones/06_requisitos_rnf.tex` con el estado preliminar de RNF-01 a RNF-04, tomando como referencia el comportamiento y las limitaciones descritos en `docs/secciones/09_comunicacion.tex`.
+- Se indicaron las comprobaciones pendientes. No se realizaron pruebas nuevas.
+
+
+**Commit:** `b2ec0a2` — Añadido estado preliminar de requisitos de calidad
