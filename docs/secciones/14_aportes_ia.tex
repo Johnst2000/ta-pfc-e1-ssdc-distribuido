@@ -1,0 +1,28 @@
+\section{Aportes individuales y uso de IA}
+
+\subsection{Reinoso Vélez Eduardo David (Arquitecto)}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Aportes de Eduardo Reinoso Vélez}
+\begin{tabularx}{\linewidth}{@{}p{5.2cm}X@{}}
+\toprule
+\textbf{Entregable} & \textbf{Ubicación en el repositorio} \\
+\midrule
+Bosquejo a mano de la arquitectura & \texttt{evidencias/bosquejo-arquitectura-1-2026-11-20.jpg} \\
+Diagrama C4 de contexto (nivel 1) & \texttt{docs/diagramas/c4-nivel1-contexto.*} \\
+Diagrama C4 de contenedores (nivel 2) & \texttt{docs/diagramas/c4-nivel2-contenedores.*} \\
+ADR-001 (estilo de arquitectura) & \texttt{docs/adr/ADR-001.md} \\
+ADR-002 (comunicación entre servicios) & \texttt{docs/adr/ADR-002.md} \\
+Plantilla de ADR & \texttt{docs/adr/PLANTILLA-ADR.md} \\
+Secciones 07, 08, 11 y riesgo R4 & \texttt{docs/secciones/} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Herramienta.} Claude (Anthropic), modelo Sonnet 5.5, en la aplicación web y en una sesión conectada a la carpeta del repositorio.
+
+\paragraph{Para qué se usó.} Proponer una estructura inicial a partir de la cual Eduardo dibujó el bosquejo a mano. Redactar los borradores de los ADR, de las secciones 07, 08 y 11 y de la fila de riesgo R4, que Eduardo revisó y ajustó. Generar los archivos \texttt{.drawio} de los diagramas C4.
+
+\paragraph{Cómo se verificó.} Las cifras de CHRSweb (324 archivos Java, 52 controladores, la propiedad \texttt{ddl-auto} con valor \texttt{update} en la línea 56 de \texttt{application\allowbreak .properties}) se contaron en el código. El comportamiento del esqueleto se contrastó con \texttt{src/} y con las capturas de \texttt{evidencias/}. El documento se compiló sin errores. Eduardo revisó cada archivo antes de subirlo.
