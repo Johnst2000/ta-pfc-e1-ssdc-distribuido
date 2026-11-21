@@ -6,7 +6,7 @@ Los registros completos están en \texttt{docs/adr/}, en Markdown. Cada uno tien
 
 \begin{description}[leftmargin=!,labelwidth=3.6cm,style=nextline]
   \item[Opciones] Monolito en capas (el actual), monolito modular y microservicios.
-  \item[Decisión] Microservicios: un servicio por módulo del C4, cada uno con su propia base. En E1 se implementan dos.
+  \item[Decisión] Microservicios: un servicio por módulo del C4, y los que guardan datos tienen su propia base. En E1 se implementan dos.
   \item[Razón] Una dependencia externa caída afecta solo a un servicio (RNF-04), cada servicio se despliega sin reiniciar los demás, los programadores salen del proceso principal y un cambio de esquema afecta a un servicio (R4).
   \item[Consecuencia] Más procesos y red entre servicios, y datos repartidos en varias bases, lo que obliga al análisis CAP y PACELC.
 \end{description}
@@ -16,6 +16,6 @@ Los registros completos están en \texttt{docs/adr/}, en Markdown. Cada uno tien
 \begin{description}[leftmargin=!,labelwidth=3.6cm,style=nextline]
   \item[Opciones] HTTP síncrono con JSON, gRPC y mensajería asíncrona con cola.
   \item[Decisión] HTTP síncrono con tiempo máximo de espera para consultas y para el aviso del esqueleto actual. Cola de mensajes para los avisos de los servicios que se agreguen en E2, sin implementarla en E1.
-  \item[Razón] Solo HTTP está implementado y probado en el esqueleto, y cuando \texttt{notificaciones} cae, \texttt{convocatorias} informa \emph{pendiente}, como pide RNF-04. Los consumidores de la cola todavía no existen.
+  \item[Razón] Solo HTTP está implementado y probado en el esqueleto, y cuando \texttt{notificaciones} cae, \texttt{convocatorias} informa \emph{pendiente}, lo que cubre RNF-04 solo en parte. Los consumidores de la cola todavía no existen.
   \item[Consecuencia] Un aviso pendiente no se reenvía mientras no exista la cola, y la llamada síncrona retiene al emisor hasta 2 segundos.
 \end{description}

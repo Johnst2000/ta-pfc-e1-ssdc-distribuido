@@ -4,7 +4,7 @@ La arquitectura se documenta con dos niveles del modelo C4. Los archivos editabl
 
 \subsection{Nivel 1: contexto}
 
-El diagrama de contexto muestra el sistema con sus usuarios (Vicerrectorado, evaluadores, postulantes y administrador) y los sistemas externos con los que se comunica: correo, Supabase Storage, Google Drive, los proveedores de IA (Groq, Mistral y Hugging Face) y el web service institucional.
+El diagrama de contexto muestra el sistema con sus usuarios (Vicerrectorado, evaluadores, postulantes y administrador) y los sistemas externos con los que se comunica: correo, Supabase Storage, Google Drive, y los proveedores de IA (Groq, Mistral y Hugging Face).
 
 \begin{figure}[p]
   \centering
@@ -14,7 +14,7 @@ El diagrama de contexto muestra el sistema con sus usuarios (Vicerrectorado, eva
 
 \subsection{Nivel 2: contenedores}
 
-El diagrama de contenedores muestra un frontend, un API gateway que valida el token y seis servicios. Cuatro de ellos tienen su propia base PostgreSQL: postulaciones, evaluación, convocatorias y auditoría. \texttt{convocatorias} y \texttt{notificaciones} están implementados en el esqueleto de \texttt{src/} y se comunican por HTTP. Los otros cuatro servicios y la cola de mensajes están planeados; el uso de la cola lo define el ADR-002.
+El diagrama de contenedores muestra un frontend, un API gateway que valida el token y seis servicios. Cuatro de ellos tienen su propia base PostgreSQL: postulaciones, evaluación, convocatorias y auditoría. \texttt{convocatorias} y \texttt{notificaciones} están implementados en el esqueleto de \texttt{src/} y se comunican por HTTP. Los otros cuatro servicios, el API gateway (que validaría el token) y la cola de mensajes están planeados; el uso de la cola lo define el ADR-002.
 
 \begin{figure}[p]
   \centering
@@ -30,8 +30,8 @@ El diagrama de contenedores muestra un frontend, un API gateway que valida el to
 \toprule
 \textbf{Contenedor} & \textbf{Estado} & \textbf{Responsabilidad} \\
 \midrule
-\texttt{convocatorias} & implementado & Solicitudes docentes, creación y publicación de convocatorias. Avisa a \texttt{notificaciones} por HTTP. \\
-\texttt{notificaciones} & implementado & Recibe avisos y envía el correo de cambio de estado. \\
+\texttt{convocatorias} & esqueleto & Lista y publica convocatorias, y al publicar avisa a \texttt{notificaciones} por HTTP. Planeado: solicitudes docentes y creación de convocatorias. \\
+\texttt{notificaciones} & esqueleto & Recibe avisos, los guarda en memoria y los lista. Planeado: envío del correo de cambio de estado. \\
 \texttt{postulaciones} & planeado & Prepostulación, expediente en PDF (Supabase Storage) y estado de la postulación. \\
 \texttt{evaluacion} & planeado & Matriz de méritos, ranking, entrevistas y clases demostrativas. Consulta a \texttt{postulaciones}. \\
 \texttt{auditoria} & planeado & Registro de cambios con hash SHA-256 y respaldos hacia Google Drive. \\

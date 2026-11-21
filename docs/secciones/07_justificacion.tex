@@ -6,11 +6,11 @@ El SSDC actual es un monolito en capas: un frontend Angular, un solo backend Spr
 
 \subsection{Por qué un monolito no basta}
 
-Si el correo, la IA o Drive no responden, el fallo ocurre dentro del mismo proceso que atiende postulaciones y evaluaciones. El requisito RNF-04 pide que el sistema informe la falla sin dar la operación por exitosa y que el resto siga funcionando. Con servicios separados, cada dependencia externa queda detrás de un solo servicio.
+Si el correo, la IA o Drive no responden, el fallo ocurre dentro del mismo proceso que atiende postulaciones y evaluaciones. El requisito RNF-04 pide que el sistema informe la falla sin dar la operación por exitosa Con servicios separados, cada dependencia externa queda detrás de un solo servicio y la falla queda acotada a él.
 
 Hoy cualquier cambio obliga a reiniciar todo el backend. Con un servicio por módulo, uno se despliega sin tocar los demás. Lo mismo pasa con los programadores de respaldos y de evaluación: comparten proceso y recursos con las peticiones de los usuarios, y un error en uno puede afectar al resto.
 
-La configuración \texttt{ddl-auto=update} aplica los cambios de las entidades a la única base en cada arranque. Es el riesgo R4 del análisis de riesgos. Con una base por servicio, el efecto de un cambio de esquema queda en ese servicio.
+La configuración \texttt{ddl-auto=update} aplica los cambios de las entidades a la única base en cada arranque. Es el riesgo R4 del análisis de riesgos. Con una base propia en cada servicio que guarda datos, el efecto de un cambio de esquema queda en ese servicio.
 
 \subsection{Alcance de esta justificación}
 
