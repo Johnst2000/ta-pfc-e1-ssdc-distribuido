@@ -55,7 +55,7 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 **Trabajo realizado**
 - Entrevista al Decano de la carrera. Medio: presencial.
 - Entrevista a la Coordinadora de la carrera, grabada en dos partes.
-- Los audios están en `/evidencias/` y el consentimiento quedó grabado al inicio de cada uno.
+- Los audios están en `/evidencias/`.
 
 **Pendiente**
 - Resumen de cifras y tabla de trazabilidad requisito → entrevista.
