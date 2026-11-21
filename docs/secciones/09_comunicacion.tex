@@ -1,0 +1,71 @@
+\section{Modelo de comunicación entre servicios}
+\emergencystretch=3em
+
+Esta sección describe cómo se comunican los dos servicios del esqueleto que está en la carpeta \texttt{src/} del repositorio. No describe todavía el sistema completo: los nombres y puertos son provisionales hasta cerrar el ADR-002.
+
+\subsection{Servicios del esqueleto}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Servicios del esqueleto}
+\begin{tabularx}{\linewidth}{@{}p{3.1cm}p{1.6cm}X@{}}
+\toprule
+\textbf{Servicio} & \textbf{Puerto} & \textbf{Responsabilidad} \\
+\midrule
+\texttt{convocatorias} & 8081 & Lista convocatorias de ejemplo y las publica. Al publicar una, avisa al otro servicio. \\
+\texttt{notificaciones} & 8082 & Recibe avisos, los guarda en memoria y los lista. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Mecanismo usado en esta entrega}
+
+Los servicios se comunican por HTTP con mensajes en formato JSON. El servicio \texttt{convocatorias} actúa como cliente y \texttt{notificaciones} como servidor. Cuando se publica una convocatoria ocurre lo siguiente:
+
+\begin{enumerate}[leftmargin=*]
+  \item El cliente envía \texttt{POST /convocatorias/\{id\}/publicar} a \texttt{convocatorias}.
+  \item \texttt{convocatorias} cambia el estado de la convocatoria a \emph{publicada}.
+  \item \texttt{convocatorias} envía \texttt{POST /notificaciones} a \texttt{notificaciones} con el evento \texttt{ConvocatoriaPublicada}, el identificador y el título. Espera la respuesta como máximo 2 segundos.
+  \item Si \texttt{notificaciones} responde, la respuesta de \texttt{convocatorias} incluye \texttt{notificacion: enviada}.
+  \item Si \texttt{notificaciones} no responde, la respuesta incluye \texttt{notificacion: pendiente}. La convocatoria queda publicada y el servicio sigue atendiendo solicitudes.
+\end{enumerate}
+
+\subsection{Comportamiento observado}
+
+Las pruebas se ejecutaron el 20 de noviembre de 2026 desde un clon limpio del repositorio, siguiendo el README de \texttt{src/}, en la máquina DESKTOP-H4C4SME. Las capturas están en la carpeta \texttt{evidencias/}.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Resultados de las pruebas del esqueleto}
+\begin{tabularx}{\linewidth}{@{}p{3.6cm}XX@{}}
+\toprule
+\textbf{Situación} & \textbf{Resultado observado} & \textbf{Evidencia} \\
+\midrule
+Ambos servicios activos & Los dos responden a \texttt{/health}. & \path|01-servicios-en-marcha.png| \\
+Publicar la convocatoria 2 & Respuesta con \texttt{notificacion: enviada} y un aviso registrado en \texttt{notificaciones}. & \path|02-comunicacion-entre-servicios.png| \\
+\texttt{notificaciones} detenido & Publicar la convocatoria 1 responde con \texttt{notificacion: pendiente}; \texttt{convocatorias} sigue activo. & \path|03-tolerancia-a-fallos.png| \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Limitaciones conocidas}
+
+\begin{itemize}[leftmargin=*]
+  \item Los datos están en memoria; al reiniciar un servicio se pierden.
+  \item Un aviso que queda \emph{pendiente} no se reintenta: si \texttt{notificaciones} vuelve a estar disponible, ese aviso no se envía solo.
+  \item No hay autenticación entre servicios.
+  \item La llamada es síncrona: \texttt{convocatorias} espera la respuesta (hasta 2 segundos) antes de contestar.
+\end{itemize}
+
+\subsection{Propuesta para el ADR-002}
+
+La decisión definitiva del mecanismo se toma en el ADR-002 con el Arquitecto. Como punto de partida, se propone separar dos tipos de comunicación:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Consultas}, que necesitan respuesta inmediata: HTTP síncrono, con tiempo máximo de espera.
+  \item \textbf{Avisos}, que toleran retraso, como las notificaciones: mensajería asíncrona con confirmación de recepción y cola de mensajes fallidos, de modo que un aviso no se pierda si el servicio receptor está caído.
+\end{itemize}
+
+Esta propuesta responde a la limitación del aviso \emph{pendiente} y se relaciona con el requisito RNF-04 (manejo de fallos). Está sin implementar: el esqueleto actual solo usa HTTP.
