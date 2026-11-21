@@ -47,6 +47,19 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 
 **Commit:** `e93b938` — Define criterios de calidad del SSDC
 
+## 19 de noviembre de 2026 — Entrevistas para el levantamiento de requisitos
+
+**Registrado por:** Aldair Herrera Barco
+**Presentes:** (quiénes estuvieron)
+
+**Trabajo realizado**
+- Entrevista al Decano de la carrera. Medio: presencial.
+- Entrevista a la Coordinadora de la carrera, grabada en dos partes.
+- Los audios están en `/evidencias/` y el consentimiento quedó grabado al inicio de cada uno.
+
+**Pendiente**
+- Resumen de cifras y tabla de trazabilidad requisito → entrevista.
+
 ## 20 de noviembre de 2026 — Estado preliminar de requisitos de calidad
 
 **Registrado por:** Joseph Calderón Saltos  
