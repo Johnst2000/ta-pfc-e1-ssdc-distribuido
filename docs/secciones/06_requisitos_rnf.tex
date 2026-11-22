@@ -1,63 +1,70 @@
 \subsection{Requisitos no funcionales y verificación}
 
-Los siguientes requisitos son propuestas iniciales para el SSDC distribuido. Se revisarán después de la entrevista y cuando se cierre la arquitectura. No se asignan tiempos ni volúmenes de uso sin datos que los respalden.
+La entrevista al Decano permite identificar como situación actual la revisión manual de hojas de vida y la asignación de puntajes en una matriz; el entrevistado señaló que esta etapa es la que más demora. También indicó que las hojas de vida deben almacenarse y que, después de la evaluación, se elaboran documentos para remitir los resultados a otras autoridades. La transcripción de la Coordinadora sugiere que los postulantes podrían cargar documentos y consultar el estado de su trámite, pero esa parte debe contrastarse con el audio porque la transcripción automática no es clara.
+
+La entrevista no proporcionó metas de latencia, cantidad de usuarios concurrentes, disponibilidad ni tiempos de recuperación. Por ello, las cifras de la tabla son metas iniciales propuestas para el diseño y deben validarse con el equipo y, cuando sea posible, con los usuarios. No son mediciones obtenidas ni compromisos expresados por las personas entrevistadas. La clasificación utiliza características del modelo de calidad de producto ISO/IEC 25010:2023.
 
 \begin{table}[H]
 \centering
-\small
-\caption{Requisitos de calidad propuestos para el esqueleto}
-\begin{tabularx}{\linewidth}{@{}p{1.1cm}p{2.8cm}XX@{}}
+\footnotesize
+\caption{Requisitos de calidad propuestos y su trazabilidad}
+\begin{tabularx}{\linewidth}{@{}p{0.7cm}p{2.5cm}X p{3.2cm}p{3.2cm}@{}}
 \toprule
-\textbf{ID} & \textbf{Requisito} & \textbf{Criterio de aceptación} & \textbf{Verificación} \\
+\textbf{ID} & \textbf{Característica ISO/IEC 25010} & \textbf{Meta inicial propuesta} & \textbf{Verificación} & \textbf{Relación con la entrevista} \\
 \midrule
-RNF-01 & Control de acceso &
-Una operación protegida solo se completa cuando la solicitud tiene autorización para ejecutarla. &
-Probar una solicitud sin autorización y otra con autorización; la primera se rechaza y la segunda obtiene la respuesta correspondiente. \\
+RNF-01 & Eficiencia de desempeño &
+Con hasta 50 sesiones concurrentes, al menos el 95\,\% de las consultas de estado y visualización de matrices responderá en un máximo de 300\,ms, excluyendo la carga de archivos. &
+Ejecutar una prueba de carga con 50 sesiones y calcular el percentil 95 de los tiempos de respuesta. Registrar configuración y resultados. &
+El Decano indicó que revisar las hojas de vida y asignar puntajes es la etapa más demorada. La entrevista no fijó el umbral de 300\,ms ni la concurrencia; son metas propuestas. \\
 
-RNF-02 & Trazabilidad &
-Cada cambio de estado de una solicitud registra quién lo realizó, cuándo ocurrió y cuál fue el estado anterior y el nuevo. &
-Realizar un cambio y revisar que el registro conserve esos datos. \\
+RNF-02 & Seguridad: confidencialidad y autenticidad &
+El 100\,\% de las rutas que entregan hojas de vida, puntajes o estados protegidos exigirá una identidad y un rol autorizado. El repositorio de entrega contendrá cero credenciales o secretos. &
+Probar cada ruta protegida sin credenciales y con un rol no autorizado; ambas solicitudes deben rechazarse. Revisar el repositorio en busca de secretos antes de la entrega. &
+El proceso utiliza hojas de vida y puntajes. La entrevista confirma su manejo, pero no define roles técnicos ni el mecanismo de autenticación; estos son requisitos de diseño. \\
 
-RNF-03 & Persistencia &
-Una operación confirmada conserva su resultado aunque se reinicie el servicio que la atendió. &
-Crear o actualizar un registro, reiniciar el servicio y consultar nuevamente el resultado. \\
+RNF-03 & Idoneidad funcional: corrección funcional &
+El 100\,\% de los casos de prueba de la matriz de evaluación deberá producir el puntaje esperado conforme a los criterios aprobados para la convocatoria. &
+Preparar casos de prueba con resultados esperados calculados independientemente y comparar cada resultado del sistema con la matriz aprobada. &
+El Decano explicó que se asignan puntajes según parámetros establecidos y que se usa una matriz. La entrevista no especificó una tasa de exactitud; el 100\,\% es el criterio propuesto para los casos de prueba. \\
 
-RNF-04 & Manejo de fallos &
-Si un servicio necesario no responde, el sistema informa que la operación no se completó y no la presenta como exitosa. &
-Detener el servicio dependiente, enviar la solicitud y comprobar la respuesta y el estado del registro. \\
+RNF-04 & Seguridad: responsabilidad &
+El 100\,\% de los cambios de puntaje o estado registrará al responsable, la fecha y hora, el valor anterior, el nuevo valor y el motivo del cambio. &
+Realizar cambios de prueba en puntajes y estados; comprobar que cada evento de auditoría contiene los cinco datos requeridos. &
+La valoración se realiza entre el Decano y la Coordinación y los resultados pasan a otras autoridades. El registro de auditoría es una propuesta para dar trazabilidad a ese flujo. \\
+
+RNF-05 & Fiabilidad: recuperabilidad &
+El 100\,\% de las hojas de vida y evaluaciones confirmadas deberá seguir disponible después de reiniciar el servicio que las almacena. &
+Crear registros de prueba, confirmar su guardado, reiniciar el servicio y consultar nuevamente todos los registros. &
+El Decano indicó que las hojas de vida deben almacenarse y que los puntajes alimentan la evaluación. La entrevista no detalló tecnología ni política de respaldo. \\
+
+RNF-06 & Capacidad de interacción: operabilidad &
+Al menos 4 de 5 usuarios de prueba completarán la carga de documentos y la consulta del estado en un máximo de 5 minutos, sin ayuda del equipo. &
+Observar una prueba con cinco usuarios representativos; registrar tiempo, finalización y solicitudes de ayuda para cada tarea. &
+La transcripción de la Coordinadora sugiere carga de documentos y consulta del estado desde una aplicación web. La formulación es preliminar y debe verificarse contra el audio. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsubsection{Estado preliminar de verificación}
 
-Según lo documentado en el modelo de comunicación, el estado inicial de los requisitos es el siguiente. Los requisitos pendientes necesitan una comprobación cuando se definan la arquitectura y las pruebas del sistema.
+Las metas anteriores aún no se han medido. El esqueleto implementado solo permite comprobar parte del manejo de fallos entre \texttt{convocatorias} y \texttt{notificaciones}; las funciones de postulaciones, evaluación, auditoría y almacenamiento persistente están planeadas y no forman parte del esqueleto actual.
 
 \begin{table}[H]
 \centering
 \small
-\caption{Estado preliminar de los requisitos de calidad}
-\begin{tabularx}{\linewidth}{@{}p{1.1cm}p{1.7cm}XX@{}}
+\caption{Estado de verificación de los requisitos de calidad}
+\begin{tabularx}{\linewidth}{@{}p{1cm}p{2cm}XX@{}}
 \toprule
-\textbf{ID} & \textbf{Estado} & \textbf{Observación} & \textbf{Siguiente comprobación} \\
+\textbf{ID} & \textbf{Estado} & \textbf{Evidencia actual} & \textbf{Siguiente comprobación} \\
 \midrule
-RNF-01 & Pendiente &
-El esqueleto no implementa autenticación entre servicios. &
-Definir el mecanismo de autorización y probar solicitudes autorizadas y no autorizadas. \\
-
-RNF-02 & Pendiente &
-No se documenta un registro de auditoría para los cambios de estado. &
-Realizar un cambio y comprobar que se guarden el responsable, la fecha y los estados anterior y nuevo. \\
-
-RNF-03 & Pendiente &
-Los datos del esqueleto se mantienen en memoria y se pierden al reiniciar los servicios. &
-Guardar un registro, reiniciar el servicio y comprobar si el registro permanece disponible. \\
-
-RNF-04 & Parcial &
-Cuando el servicio de notificaciones no responde, la notificación queda pendiente y la convocatoria permanece publicada. &
-Distinguir en la respuesta el resultado de publicar la convocatoria del estado de la notificación. \\
+RNF-01 & Pendiente & No se documenta una prueba de carga con 50 sesiones concurrentes. & Ejecutar la prueba de carga y contrastar el percentil 95 con la meta propuesta. \\
+RNF-02 & Pendiente & El modelo de comunicación indica que no hay autenticación entre los servicios del esqueleto. & Definir los roles y el mecanismo de acceso; probar las rutas protegidas y revisar que no haya secretos en el repositorio. \\
+RNF-03 & Pendiente & El esqueleto no implementa la matriz de evaluación del proceso de selección. & Acordar los criterios de la matriz y comprobar los casos de prueba con resultados calculados independientemente. \\
+RNF-04 & Pendiente & La auditoría aparece como un servicio planeado; no se documenta un registro de cambios implementado. & Implementar o especificar el registro y comprobar los campos requeridos para cada cambio. \\
+RNF-05 & Pendiente & El servicio de notificaciones conserva sus datos en memoria; el esqueleto no implementa el almacenamiento de hojas de vida ni evaluaciones. & Definir almacenamiento persistente y verificar la recuperación tras reiniciar el servicio correspondiente. \\
+RNF-06 & Pendiente & No se documentan pruebas de interacción con postulantes. & Probar la carga y consulta de estado con cinco usuarios representativos y registrar los resultados. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Este estado es preliminar y deberá actualizarse cuando se definan la arquitectura y las pruebas del sistema.
+Los estados describen la evidencia disponible en el esqueleto de esta entrega; no significan que las metas propuestas ya se hayan alcanzado. Las metas numéricas deben revisarse y aprobarse antes de tratarlas como requisitos acordados.
