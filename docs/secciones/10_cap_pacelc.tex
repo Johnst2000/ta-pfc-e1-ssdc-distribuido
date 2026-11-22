@@ -1,0 +1,41 @@
+\section{Análisis CAP y PACELC}
+
+El teorema CAP permite analizar qué ocurre cuando una partición de red impide que partes de un sistema distribuido se comuniquen. Durante esa partición, no se puede garantizar al mismo tiempo la consistencia fuerte y que todas las solicitudes reciban una respuesta. PACELC amplía el análisis: cuando no hay partición, también considera el compromiso entre consistencia y latencia \cite{gilbert2002brewer,abadi2012pacelc}.
+
+Este análisis se plantea para la arquitectura futura del SSDC, donde se proponen servicios separados y bases de datos propias. El esqueleto de esta entrega solo contiene los servicios \texttt{convocatorias} y \texttt{notificaciones}; guarda datos en memoria y no implementa réplicas ni pruebas de particiones. Por ello, las decisiones siguientes son propuestas de diseño, no propiedades ya implementadas o medidas.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Propuesta de prioridades CAP y PACELC para datos críticos}
+\begin{tabularx}{\linewidth}{@{}p{2.7cm}XXp{3.2cm}@{}}
+\toprule
+\textbf{Dato crítico} &
+\textbf{Durante una partición (CAP)} &
+\textbf{Sin partición (PACELC)} &
+\textbf{Consecuencia para el usuario} \\
+\midrule
+Postulaciones y documentos &
+Priorizar la consistencia. No confirmar una operación hasta verificar que quedó registrada en el servicio responsable. &
+Priorizar la consistencia al confirmar escrituras, aunque la coordinación pueda aumentar la latencia. &
+El envío puede quedar pendiente o rechazarse temporalmente; así se evita informar como guardado un expediente que no se confirmó. \\
+
+Puntajes de evaluación &
+Priorizar la consistencia. Suspender o diferir cambios si no se puede verificar el estado autorizado del puntaje. &
+Priorizar la consistencia sobre la latencia al guardar una evaluación. &
+El evaluador puede tener que reintentar, pero el sistema evita confirmar versiones contradictorias del puntaje. \\
+
+Auditoría de cambios &
+Priorizar la consistencia del registro. No presentar como auditado un cambio cuyo evento no se haya conservado de forma durable. &
+Priorizar la consistencia y el orden del registro, aunque la confirmación tarde más. &
+La operación puede demorarse o quedar pendiente mientras se registra el evento. Un hash por sí solo no garantiza que varias réplicas mantengan el mismo estado. \\
+
+Notificaciones &
+Priorizar la recepción del evento cuando pueda guardarse de forma durable; marcarlo como pendiente y enviarlo al recuperarse el servicio. &
+Priorizar la latencia de la operación principal mediante envío asíncrono; el estado de la notificación puede actualizarse después. &
+La operación principal puede continuar y el correo llegar con retraso. El sistema debe evitar anunciar que ya fue entregado si solo quedó pendiente. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Estas prioridades son preliminares y deben revisarse con el Arquitecto antes de considerarlas decisiones definitivas. Para sostenerlas, el diseño tendrá que precisar cómo se confirman las escrituras, cómo se reintentan las solicitudes sin duplicarlas y cómo se conservan los eventos de auditoría y notificación cuando un servicio no está disponible.
