@@ -1,0 +1,22 @@
+% Fila R1 del análisis de riesgos (Joseph Calderón).
+\subsection{R1: despliegue de una regla con alcance excesivo}
+
+\begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
+  \item[Incidente de origen]
+    El 21 de junio de 2022, Cloudflare desplegó un cambio en sus políticas de anuncios de rutas BGP. El reordenamiento de términos hizo que se retiraran prefijos críticos y dejó fuera de servicio 19 centros de datos; el incidente afectó el 50\,\% de las solicitudes HTTP globales. Cloudflare indicó que las etapas del despliegue no fueron lo bastante pequeñas para detectar el problema antes de que alcanzara los centros afectados \cite{cloudflare2022outage}.
+
+  \item[Relación con el SSDC]
+    El backend actual concentra las funciones del SSDC. Un cambio incorrecto en la matriz de méritos o en las reglas de validación podría afectar varias convocatorias y postulaciones. En la arquitectura distribuida futura, un despliegue amplio de una regla compartida también podría propagar el error a más de un servicio.
+
+  \item[Probabilidad]
+    Media, como estimación cualitativa del equipo; no corresponde a una frecuencia medida.
+
+  \item[Impacto]
+    Alto: un error podría bloquear postulaciones o producir evaluaciones incorrectas durante una convocatoria.
+
+  \item[Medida propuesta]
+    El esqueleto de E1 no implementa la matriz de méritos, por lo que esta medida aún no está implementada. Para las siguientes etapas se propone versionar las reglas, exigir revisión antes de publicarlas, probarlas automáticamente y desplegarlas por etapas con una opción de reversión.
+
+  \item[Verificación]
+    En E1, dejar documentados estos controles como propuesta. Cuando se implemente la evaluación, probar una regla inválida y comprobar que las pruebas impidan publicarla; después, verificar en un despliegue controlado que una reversión restaure la versión anterior.
+\end{description}
