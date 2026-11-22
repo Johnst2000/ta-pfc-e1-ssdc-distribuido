@@ -1,0 +1,19 @@
+% Fila R5 del análisis de riesgos (John Silva, Líder de Desarrollo).
+% Se incluye desde main.tex con \input{secciones/12_riesgo_R5}
+\subsection{R5: un error de automatización afecta a varios procesos a la vez}
+\emergencystretch=3em
+
+\begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
+  \item[Incidente de origen]
+    El 2 de junio de 2019 se inició un mantenimiento en una sola ubicación de Google Cloud. Un error de software en la automatización de mantenimiento detuvo, a la vez, los procesos del plano de control de la red en varios clústeres de ubicaciones distintas. La red siguió funcionando en modo \emph{fail static} solo unos minutos y después se retiraron rutas BGP. La red perdió capacidad en seis regiones y el problema duró entre 3 h 19 min y 4 h 25 min\footnote{Informe de Google Cloud, incidente \#19009: \url{https://status.cloud.google.com/incident/cloud-networking/19009}.}.
+  \item[Relación con el SSDC]
+    En CHRSweb las tareas automáticas viven en el mismo backend: \texttt{@EnableScheduling} está en \texttt{BackendApplication}, y hay dos tareas programadas a medianoche. Una (\texttt{ProcesoEvaluacionScheduler}, todos los días) crea los procesos de evaluación de los postulantes aprobados cuya fecha límite de documentos es hoy; la otra (\texttt{NotificacionService}, los domingos) elimina notificaciones leídas con más de 90 días. Comparten el mismo proceso, el mismo pool de conexiones y la misma base de datos, así que un fallo del backend o del pool a esa hora las afecta juntas. Además, la tarea de limpieza llama al procedimiento \texttt{sp\_eliminar\_notificaciones\_antiguas}, que captura cualquier error y lo devuelve como texto en un parámetro de salida; el código Java no lo lee y siempre escribe en el registro que la limpieza se completó. Un fallo ahí no deja aviso.
+  \item[Probabilidad]
+    Media: las dos tareas se ejecutan cada noche o cada semana, siempre en el mismo proceso.
+  \item[Impacto]
+    Medio: si la tarea diaria falla, los postulantes no pasan a evaluación en la fecha esperada y nadie lo nota hasta revisar el proceso a mano.
+  \item[Medida en E1]
+    El esqueleto no tiene tareas programadas, así que en E1 no hay nada que fallar. El diseño fija que cada tarea automática vive en el servicio dueño de sus datos: la limpieza de notificaciones en \texttt{notificaciones} y el inicio de procesos en el servicio de postulaciones. Cada tarea debe registrar su resultado real (éxito o error) y no solo que terminó.
+  \item[Verificación]
+    En E2, se hace fallar a propósito el procedimiento de limpieza (por ejemplo, con un valor inválido) y se comprueba que el registro muestre el error y no diga que se completó. También se detiene un servicio y se comprueba que las tareas de los otros siguen ejecutándose. El resultado se anota en la bitácora.
+\end{description}
