@@ -1,0 +1,85 @@
+% Responsable: Aldair Herrera (Documentación)
+% Fuente: entrevistas del 19 de noviembre de 2026
+%   D  = evidencias/Decano.m4a
+%   C1 = evidencias/Coordinadora p1.m4a
+%   C2 = evidencias/Coordinadora p2.m4a
+\subsection{Requisitos funcionales}
+
+Los requisitos funcionales se redactan como historias de usuario. Cada una se
+relaciona con lo dicho por el Decano (D) o por la Coordinadora de la carrera (C1,
+C2) en las entrevistas.
+
+{\small
+\begin{longtable}{@{}p{1.2cm}p{6.3cm}p{7.3cm}@{}}
+\caption{Requisitos funcionales como historias de usuario}\\
+\toprule
+\textbf{ID} & \textbf{Historia de usuario} & \textbf{Criterios de aceptación} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Historia de usuario} & \textbf{Criterios de aceptación} \\
+\midrule
+\endhead
+RF-01 & Como \textbf{postulante}, quiero enviar mi hoja de vida en PDF desde el sistema, para no tener que mandarla por correo. &
+Solo se aceptan archivos PDF; el postulante recibe una confirmación con la fecha de envío; el archivo queda asociado a su postulación. \\
+\midrule
+RF-02 & Como \textbf{Decano}, quiero que las hojas de vida recibidas queden almacenadas en un solo lugar, para no descargarlas una por una de distintos correos. &
+Toda hoja de vida enviada aparece en el listado de la convocatoria; se puede abrir sin salir del sistema. \\
+\midrule
+RF-03 & Como \textbf{postulante}, quiero consultar el estado de mi postulación, para saber en qué etapa está. &
+El estado visible es uno de: recibida, en revisión, llamada a entrevista, evaluada, enviada a autoridades; cada cambio muestra su fecha. \\
+\midrule
+RF-04 & Como \textbf{Coordinadora}, quiero que el sistema marque si el postulante cumple los requisitos mínimos (cuarto nivel y experiencia docente), para descartar a tiempo a quien no los cumple. &
+El postulante sin título de cuarto nivel o sin experiencia docente registrada queda marcado como \enquote{no cumple}; la marca puede revisarse antes de cerrar la evaluación. \\
+\midrule
+RF-05 & Como \textbf{evaluador} (Decano o Coordinadora), quiero calificar cada hoja de vida con la matriz de valoración, para no llenar el Excel a mano. &
+La matriz tiene los criterios títulos, experiencia docente, publicaciones afines a la cátedra, cursos de actualización y reconocimientos académicos; cada criterio guarda su puntaje. \\
+\midrule
+RF-06 & Como \textbf{evaluador}, quiero que el sistema sume los puntajes automáticamente, para evitar errores al contabilizarlos. &
+El total se recalcula al cambiar cualquier puntaje; el total mostrado coincide con la suma de los criterios y de la entrevista. \\
+\midrule
+RF-07 & Como \textbf{Coordinadora}, quiero agendar la entrevista de los postulantes preseleccionados y registrar su puntaje, para administrarla desde la aplicación. &
+Se registra fecha y hora de la entrevista; el postulante ve la citación en su estado; el puntaje de la entrevista se suma al total. \\
+\midrule
+RF-08 & Como \textbf{evaluador}, quiero ver a los postulantes ordenados por puntaje total, para decidir a partir de ese puntaje. &
+El listado se ordena de mayor a menor puntaje total; los postulantes marcados como \enquote{no cumple} se muestran aparte. \\
+\midrule
+RF-09 & Como \textbf{Coordinadora}, quiero generar el informe con la matriz y los puntajes, para no redactarlo a mano. &
+El informe se genera en PDF con la matriz de cada postulante, el total y la fecha; los datos coinciden con los registrados en el sistema. \\
+\midrule
+RF-10 & Como \textbf{Decano}, quiero registrar el envío del informe y su aprobación por el Consejo Directivo, el Consejo Académico y el Consejo Universitario, o la aprobación administrativa de la rectora, para saber en qué instancia está. &
+Cada instancia guarda fecha y resultado; si se registra aprobación administrativa, el trámite queda pendiente de ratificación por el consejo. \\
+\midrule
+RF-11 & Como \textbf{administrador}, quiero que cada usuario acceda solo a lo que le corresponde según su rol, para proteger las evaluaciones y los documentos. &
+El postulante solo ve su propia postulación; solo el Decano y la Coordinadora pueden calificar y generar el informe. \\
+\bottomrule
+\end{longtable}
+}
+
+\subsubsection{Trazabilidad con las entrevistas}
+
+{\small
+\begin{longtable}{@{}p{1.6cm}p{1.2cm}p{11.8cm}@{}}
+\caption{Relación entre requisitos funcionales y entrevistas}\\
+\toprule
+\textbf{RF} & \textbf{Fuente} & \textbf{Lo que dijo el entrevistado (resumen)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{RF} & \textbf{Fuente} & \textbf{Lo que dijo el entrevistado (resumen)} \\
+\midrule
+\endhead
+RF-01 & C1 & El postulante \enquote{puede enviar sus documentos} desde el sistema; hoy envían la hoja de vida por correo a Talento Humano o al decanato. \\
+RF-02 & D, C1 & La hoja de vida enviada \enquote{tiene que estar almacenada}; hoy se descarga del correo y se revisa una por una. \\
+RF-03 & C1 & \enquote{Puede haber un seguimiento del estado} de la postulación. \\
+RF-04 & C2 & El cuarto nivel es \enquote{un requisito fundamental}, junto con la experiencia docente. \\
+RF-05 & D, C1 & Se califica con una matriz de valoración en Excel por títulos, experiencia docente, publicaciones afines, cursos y reconocimientos. \\
+RF-06 & C1 & Hoy \enquote{tenemos que contabilizar estos puntajes}; el proceso \enquote{tiene que automatizarse}. \\
+RF-07 & C1 & Se llama a entrevista a los mejores candidatos y la entrevista tiene puntaje; \enquote{se podría administrar desde la aplicación}. \\
+RF-08 & C1 & \enquote{Se decide a partir del puntaje total}. \\
+RF-09 & D, C1 & Con los puntajes se elabora un acta y un informe; hoy hay que \enquote{generar el informe, escribirlo}. \\
+RF-10 & D & El informe pasa por el Consejo Directivo, el Consejo Académico y el Consejo Universitario; la rectora puede aprobar administrativamente y luego se ratifica. \\
+RF-11 & C1 & Se preguntó quiénes deben acceder: el Decano (evaluador) y el postulante (envío y seguimiento). \\
+\bottomrule
+\end{longtable}
+}

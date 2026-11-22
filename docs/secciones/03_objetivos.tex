@@ -1,0 +1,36 @@
+% Responsable: Aldair Herrera (Documentación)
+\section{Objetivos}
+
+\subsection{Objetivo general}
+Diseñar y construir, a lo largo del periodo SPA 2026--2027, una versión distribuida del
+SSDC que permita recibir las hojas de vida de los postulantes, calificarlas con la matriz
+de valoración y generar el informe de selección, a partir de los requisitos obtenidos en
+las entrevistas al Decano y a la Coordinadora de la carrera.
+
+\subsection{Objetivos específicos}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Objetivos específicos e indicadores}
+\begin{tabularx}{\linewidth}{@{}p{0.9cm}XX@{}}
+\toprule
+\textbf{ID} & \textbf{Objetivo} & \textbf{Indicador de cumplimiento} \\
+\midrule
+OE-1 & Obtener los requisitos del sistema a partir de entrevistas a quienes realizan hoy la selección. &
+Al menos 10 requisitos funcionales y 6 no funcionales, cada uno relacionado con un fragmento de las entrevistas (E1). \\
+\midrule
+OE-2 & Definir la arquitectura distribuida base del SSDC y registrar sus decisiones. &
+Diagramas C4 de nivel 1 y 2 versionados en \texttt{docs/diagramas/} y al menos 2 ADR en \texttt{docs/adr/} (E1). \\
+\midrule
+OE-3 & Construir un esqueleto de servicios que se comuniquen con el mecanismo elegido. &
+Al menos 2 servicios se levantan con un solo comando siguiendo el README desde un clon limpio (E1); todos los servicios del C4 en contenedores (E2). \\
+\midrule
+OE-4 & Automatizar la calificación con la matriz de valoración. &
+En los casos de prueba, el puntaje total que calcula el sistema coincide con el cálculo manual en el 100\,\% de los casos (E4). \\
+\midrule
+OE-5 & Identificar y mitigar los riesgos técnicos de distribuir el sistema. &
+Al menos 5 riesgos con probabilidad, impacto, mitigación y verificación, 3 de ellos derivados de los incidentes de FORM-AC-01 (E1). \\
+\bottomrule
+\end{tabularx}
+\end{table}

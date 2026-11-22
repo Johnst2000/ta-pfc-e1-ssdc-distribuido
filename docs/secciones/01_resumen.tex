@@ -1,0 +1,37 @@
+% Responsable: Aldair Herrera (Documentación) — 300 a 400 palabras
+\section*{Resumen ejecutivo}
+\addcontentsline{toc}{section}{Resumen ejecutivo}
+
+En la Facultad de Ciencias de la Computación de la Universidad Técnica Estatal de
+Quevedo, la selección de docentes no titulares se hace sin un sistema propio. Según las
+entrevistas al Decano y a la Coordinadora de la carrera, los postulantes envían su hoja
+de vida por correo a Talento Humano o directamente al decanato. Allí se descarga cada
+una, se califica a mano con una matriz de valoración en Excel y, con los puntajes, se
+redacta un informe que pasa por el Consejo Directivo, el Consejo Académico y el Consejo
+Universitario. El Decano señaló que lo que más tiempo toma es revisar las hojas de vida
+y registrar los puntajes, y la Coordinadora afirmó que el proceso tiene que
+automatizarse.
+
+El Sistema de Selección Docente y Convocatorias (SSDC) ya existe como un monolito en
+capas desarrollado en la asignatura Aplicaciones Web. En este proyecto se evoluciona
+hacia una arquitectura distribuida. Sus usuarios son los postulantes, que envían sus
+documentos y consultan el estado de su postulación; el Decano y la Coordinadora, que
+califican y generan el informe; y las autoridades que aprueban la contratación.
+
+Un sistema distribuido es apropiado porque el SSDC depende de servicios externos, como
+el correo, el almacenamiento de archivos y la inteligencia artificial, que hoy se
+ejecutan dentro del mismo proceso que atiende postulaciones y evaluaciones. Si uno de
+ellos falla, puede afectar todo el sistema, y cualquier cambio obliga a reiniciar el
+backend completo. Al separar el sistema en servicios con su propia base de datos, cada
+falla queda acotada al servicio que la produce y cada parte se despliega sin detener
+las demás. Esta decisión se registra en el ADR-001, y el mecanismo de comunicación entre
+servicios, en el ADR-002.
+
+En esta primera entrega se definen once requisitos funcionales y seis no funcionales
+relacionados con las entrevistas, la arquitectura base con el modelo C4 en sus niveles
+de contexto y contenedores, el modelo de comunicación entre servicios, el análisis CAP y
+PACELC de los datos críticos y los riesgos técnicos derivados de incidentes reales.
+Además, se entrega un esqueleto con dos servicios, convocatorias y notificaciones, que
+se comunican por HTTP y se levantan con un solo comando. En las entregas siguientes se
+implementarán los microservicios y sus contenedores, la base de datos distribuida y el
+sistema final con sus pruebas.
