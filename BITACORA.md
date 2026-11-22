@@ -107,3 +107,17 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 - El ADR-001 fue revisado por el equipo CHRS y el ADR-002 por John Silva Triviño. Ambos pasan de estado «propuesto» a «aceptado» y se actualiza el campo «Revisado por».
 - Eduardo grabó su parte del video (diagramas C4 y ADR), a la espera de unirla con las partes de los demás integrantes en un único video.
 - Sesión de diseño del equipo por llamada: estuvimos los cuatro integrantes (Joseph Calderón Saltos, Aldair Herrera Barco, Eduardo Reinoso Vélez y John Silva Triviño). Revisamos juntos el bosquejo de la arquitectura y el diagrama C4 de contenedores. Capturas: `evidencias/sesion-diseno-1-bosquejo-2026-11-21.jpeg` y `evidencias/sesion-diseno-2-c4-nivel2-2026-11-21.jpeg`.
+
+
+## 21 de noviembre de 2026 — Cierre de aportes de calidad
+
+**Registrado por:** Joseph Calderón Saltos  
+**Presentes:** Joseph Calderón Saltos
+
+**Trabajo realizado**
+- Se ampliaron los trabajos relacionados y las referencias bibliográficas.
+- Se completó mi análisis CAP/PACELC y se agregaron los riesgos R2 (Meta) y R3 (Fastly) en archivos separados.
+- Se registraron mis entregables con sus issues y commits en `docs/secciones/14_aportes_ia.tex`.
+- Grabé mi parte del video sobre los requisitos de calidad y el análisis CAP/PACELC.
+
+**Commits:** `5a0e6d75`, `9bda3b80`, `a67e73fd`, `62f0f4bc`.
