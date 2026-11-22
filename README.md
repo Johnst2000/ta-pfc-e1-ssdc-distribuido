@@ -53,7 +53,7 @@ Se levantan dos servicios que se comunican por HTTP: `convocatorias` (puerto 808
 
 ## Video
 
-Video de la entrega TA-PFC-E1 (5 a 7 minutos, los cuatro integrantes): **ENLACE PENDIENTE**
+Video de la entrega TA-PFC-E1 (5 a 7 minutos, los cuatro integrantes): https://youtu.be/Z0cmPRDRGAY
 
 ## Evidencias
 
