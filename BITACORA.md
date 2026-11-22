@@ -52,12 +52,12 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 ## 19 de noviembre de 2026 — Entrevistas para el levantamiento de requisitos
 
 **Registrado por:** Aldair Herrera Barco
-**Presentes:** (quiénes estuvieron)
+**Presentes:** Ponce Ordoñez Jessica (Coordinadora de la carrera), Chiriboga Casanova Washington (Decano), Calderón Saltos Joseph, Herrera Barco Humberto, Reinoso Vélez Eduardo y Silva Triviño John.
 
 **Trabajo realizado**
 
-- Entrevista al Decano de la carrera. Medio: presencial.
-- Entrevista a la Coordinadora de la carrera, grabada en dos partes.
+- Entrevista a Chiriboga Casanova Washington, Decano de la carrera. Medio: presencial.
+- Entrevista a Ponce Ordoñez Jessica, Coordinadora de la carrera, grabada en dos partes.
 - Los audios están en `/evidencias/`.
 
 **Pendiente**
