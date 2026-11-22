@@ -1,0 +1,38 @@
+% Riesgo R3: Joseph Calderón.
+\subsection{R3: entrada válida activa un fallo no previsto}
+
+\begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
+  \item[Incidente de origen]
+    El 8 de junio de 2021, un cambio válido de configuración de un
+    cliente activó un defecto que Fastly había introducido semanas
+    antes. Según la empresa, el 85\,\% de su red comenzó a devolver
+    errores; el 95\,\% volvió a operar normalmente en 49 minutos
+    \footnote{Informe de Fastly:
+    \url{https://www.fastly.com/blog/summary-of-june-8-outage}.}.
+
+  \item[Relación con el SSDC]
+    Una postulación o una configuración válida podría combinar
+    condiciones que un servicio futuro del SSDC no haya probado.
+    Si ese error afecta a otras solicitudes, una sola operación
+    podría interrumpir la carga o evaluación de varios postulantes.
+    Este escenario es hipotético: el esqueleto de E1 aún no implementa
+    esas funciones.
+
+  \item[Probabilidad]
+    Media, como estimación cualitativa; no hay mediciones del SSDC
+    que permitan calcularla.
+
+  \item[Impacto]
+    Alto: durante una convocatoria podría impedir postulaciones
+    o evaluaciones de otros usuarios.
+
+  \item[Medida propuesta]
+    Probar combinaciones válidas y casos límite antes de publicar
+    cambios; registrar los errores y limitar su efecto a la solicitud
+    afectada. Preparar una reversión de la versión defectuosa.
+
+  \item[Verificación]
+    Cuando se implemente la postulación, ejecutar casos válidos con
+    combinaciones poco habituales y comprobar que un error no detenga
+    el servicio ni afecte las solicitudes de otros usuarios.
+\end{description}
