@@ -50,6 +50,46 @@ Publicar la convocatoria 2 & Respuesta con \texttt{notificacion: enviada} y un a
 \end{tabularx}
 \end{table}
 
+\subsection{Interacciones del diagrama de contenedores}
+
+La tabla recoge cada flecha del diagrama C4 de contenedores (nivel 2). \emph{Sinc.} es una llamada que espera respuesta y \emph{asinc.} deja un evento en la cola y sigue. De todo el diagrama, en el esqueleto solo está implementada la interacción de \texttt{convocatorias} con \texttt{notificaciones}, y hoy es HTTP directo; en el diagrama ese camino pasa por la cola, que es lo planeado según el ADR-002. El resto son decisiones de diseño sin implementar. Los usuarios (Vicerrectorado, Evaluadores, Postulantes y Administrador) usan el Frontend desde el navegador y no se listan como interacción entre contenedores.
+
+{\small
+\begin{longtable}{@{}p{3.7cm}p{1.3cm}p{2.9cm}p{5.6cm}@{}}
+\caption{Interacciones entre contenedores y mecanismo propuesto}\\
+\toprule
+\textbf{Interacción} & \textbf{Tipo} & \textbf{Mecanismo} & \textbf{Justificación} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Interacción} & \textbf{Tipo} & \textbf{Mecanismo} & \textbf{Justificación} \\
+\midrule
+\endhead
+Frontend $\to$ API Gateway & Sinc. & HTTP con JSON & El usuario espera la respuesta en pantalla; el gateway valida el token antes de pasar la solicitud. \\
+API Gateway $\to$ Postulaciones & Sinc. & HTTP con JSON & Consulta u orden que necesita respuesta inmediata, con tiempo máximo de espera. \\
+API Gateway $\to$ Evaluación & Sinc. & HTTP con JSON & Igual que la anterior: el evaluador necesita ver el resultado. \\
+API Gateway $\to$ Convocatorias & Sinc. & HTTP con JSON & Es el mecanismo que ya está probado en el esqueleto. \\
+API Gateway $\to$ Auditoría & Sinc. & HTTP con JSON & Consulta de registros de auditoría por parte del Administrador. \\
+API Gateway $\to$ Notificaciones & Sinc. & HTTP con JSON & Consulta de las notificaciones del usuario; es lectura, no aviso. \\
+API Gateway $\to$ IA & Sinc. & HTTP con JSON & La persona espera el resultado del análisis; la llamada necesita tiempo máximo de espera. \\
+Evaluación $\to$ Postulaciones & Sinc. & HTTP con JSON & Evaluación necesita los datos de la postulación para continuar (etiqueta \emph{consulta} del diagrama). \\
+Postulaciones $\to$ Supabase Storage & Sinc. & API HTTP del servicio & Se guardan y leen los PDF de los documentos; hay que saber si la carga se completó. \\
+Postulaciones $\to$ PostgreSQL & Sinc. & Conexión SQL & Cada servicio con datos tiene su propia base (ADR-001). \\
+Evaluación $\to$ PostgreSQL & Sinc. & Conexión SQL & Igual: base propia por servicio. \\
+Convocatorias $\to$ PostgreSQL & Sinc. & Conexión SQL & Igual: base propia por servicio. \\
+Auditoría $\to$ PostgreSQL & Sinc. & Conexión SQL & Igual: base propia por servicio. \\
+Convocatorias $\to$ Cola & Asinc. & Cola de mensajes (ADR-002) & Publica el evento de convocatoria publicada sin esperar a que el receptor esté disponible. \\
+Evaluación $\to$ Cola & Asinc. & Cola de mensajes (ADR-002) & Publica el evento de evaluación terminada; el aviso tolera retraso. \\
+Postulaciones $\to$ Cola & Asinc. & Cola de mensajes (ADR-002) & Publica el evento de postulación recibida; el aviso tolera retraso. \\
+Cola $\to$ Auditoría & Asinc. & Cola de mensajes (ADR-002) & Auditoría consume los eventos cuando puede, con confirmación de recepción. \\
+Cola $\to$ Notificaciones & Asinc. & Cola de mensajes (ADR-002) & Un aviso no se pierde si notificaciones está caído, que es la limitación del esqueleto. \\
+Auditoría $\to$ Google Drive & Sinc. & API HTTP del servicio (respaldos) & Hay que confirmar que el respaldo se escribió. \\
+Notificaciones $\to$ Correo & Sinc. & Protocolo del servicio de correo & El proveedor responde si aceptó el envío; el mecanismo exacto se define en E2. \\
+IA $\to$ Proveedores de IA & Sinc. & API HTTP del proveedor & Los proveedores (Groq, Mistral, Hugging Face) se consumen por su API; hay que limitar el tiempo de espera. \\
+\bottomrule
+\end{longtable}
+}
+
 \subsection{Limitaciones conocidas}
 
 \begin{itemize}[leftmargin=*]
