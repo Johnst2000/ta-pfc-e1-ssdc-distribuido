@@ -41,6 +41,26 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
+## Cómo ejecutar el esqueleto
+
+Requisito: Docker Desktop abierto. Desde la carpeta `src/`:
+
+```
+docker compose up --build
+```
+
+Se levantan dos servicios que se comunican por HTTP: `convocatorias` (puerto 8081) y `notificaciones` (puerto 8082). Las pruebas paso a paso están en [`src/README.md`](src/README.md).
+
+## Video
+
+Video de la entrega TA-PFC-E1 (5 a 7 minutos, los cuatro integrantes): **ENLACE PENDIENTE**
+
+## Evidencias
+
+- Entrevistas (audio): `evidencias/Decano.m4a`, `evidencias/Coordinadora p1.m4a`, `evidencias/Coordinadora p2.m4a`
+- Sesiones de diseño y bosquejo: `evidencias/`
+- Capturas del esqueleto en ejecución: `evidencias/01-servicios-en-marcha.png`, `02-comunicacion-entre-servicios.png`, `03-tolerancia-a-fallos.png`
+
 ## Seguridad
 
 Este repositorio no contiene contraseñas, tokens, claves ni datos personales. La configuración sensible se entrega por variables de entorno.
