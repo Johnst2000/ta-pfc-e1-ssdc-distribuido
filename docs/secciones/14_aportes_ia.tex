@@ -91,3 +91,30 @@ Riesgos R2 y R3: GitHub y Fastly &
 \end{table}
 
 \paragraph{Uso de IA.} Joseph utilizó ChatGPT (OpenAI) como apoyo para organizar el código LaTeX y buscar referencias bibliográficas. Comprobó los datos de las referencias antes de incorporarlas al documento.
+
+
+\subsection{Silva Triviño John Jairo (Líder de Desarrollo)}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Aportes de John Jairo Silva Triviño}
+\begin{tabularx}{\linewidth}{@{}p{5.2cm}p{1.1cm}X@{}}
+\toprule
+\textbf{Entregable} & \textbf{Issue} & \textbf{Commits} \\
+\midrule
+Repositorio, estructura, README y bitácora & \ghi{1} & \ghc{dd4cc64}, \ghc{47656a2}, \ghc{df4554d}, \ghc{e722e9a}, \ghc{060638c} \\
+Esqueleto de dos servicios con Docker Compose & \ghi{13} & \ghc{7e9e69b}, \ghc{89af6dd}, \ghc{8f255a1}, \ghc{13c7db1}, \ghc{e842650}, \ghc{7771628} \\
+Tres capturas del esqueleto en ejecución & \ghi{14} & \ghc{2fc6a26}, \ghc{fb2e5fd}, \ghc{a1bd7a8} \\
+Sección 09 (modelo de comunicación) & \ghi{15} & \ghc{b62e503} \\
+Riesgo R5 (Google Cloud 2019) & \ghi{16} & \ghc{4c9863b}, \ghc{9f61a3f} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Herramienta.} Claude (Anthropic), modelo Sonnet 5.5, en la aplicación web y en una sesión conectada a mi equipo.
+
+\paragraph{Para qué se usó.} Proponer el código del esqueleto de los dos servicios y su \texttt{docker-compose} y revisar que el documento compilara. Los mensajes de commit, los cambios en GitHub y el resto los hice yo.
+
+\paragraph{Cómo se verificó.} Ejecuté el esqueleto con \texttt{docker compose up} en mi equipo, publiqué una convocatoria y detuve el servicio de notificaciones para comprobar el estado \emph{pendiente}; las capturas de \texttt{evidencias/} son de esa ejecución. Las referencias al código de CHRSweb en el riesgo R5 se comprobaron en el código, y los datos del incidente se contrastaron con el informe de Google Cloud. Revisé cada archivo antes de subirlo.
+
