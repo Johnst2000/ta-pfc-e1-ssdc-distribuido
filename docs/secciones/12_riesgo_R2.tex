@@ -1,0 +1,37 @@
+% Riesgo R2: Joseph Calderón.
+\subsection{R2: pérdida de comunicación durante una operación}
+
+\begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
+  \item[Incidente de origen]
+    El 4 de octubre de 2021, un comando de mantenimiento desconectó
+    la red interna de los centros de datos de Meta. Una falla en la
+    herramienta que revisaba esos comandos impidió detenerlo. Después,
+    los servidores DNS dejaron de anunciar sus rutas BGP y los
+    servicios quedaron inaccesibles\footnote{Informe de Meta:
+    \url{https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/}.}.
+
+  \item[Relación con el SSDC]
+    Una interrupción entre los servicios del SSDC puede impedir que
+    un aviso llegue a \texttt{notificaciones}. En el esqueleto actual,
+    \texttt{convocatorias} mantiene la publicación y responde que la
+    notificación está pendiente, pero no reintenta el envío cuando
+    vuelve la comunicación.
+
+  \item[Probabilidad]
+    Media, como estimación cualitativa; no se dispone de una
+    frecuencia medida para el SSDC.
+
+  \item[Impacto]
+    Medio: la convocatoria puede quedar publicada mientras el aviso
+    correspondiente no llega a sus destinatarios.
+
+  \item[Medida propuesta]
+    Conservar de forma durable los avisos pendientes y reintentarlos
+    cuando se recupere la comunicación, evitando duplicados. Esta
+    recuperación todavía no está implementada en E1.
+
+  \item[Verificación]
+    En E1, detener \texttt{notificaciones} y comprobar que la respuesta
+    indique \emph{pendiente}. En una etapa posterior, restablecer el
+    servicio y verificar que un aviso pendiente se entregue una sola vez.
+\end{description}
