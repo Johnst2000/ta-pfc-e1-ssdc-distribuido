@@ -1,37 +1,46 @@
-% Riesgo R2: Joseph Calderón.
-\subsection{R2: pérdida de comunicación durante una operación}
+% Riesgo R2: Joseph Calderón. Derivado del FORM-AC-01 del equipo EHPT:
+% https://github.com/aldhair00/FORM-AC-01-EHPT
+\subsection{R2: notificaciones pendientes tras una interrupción}
 
 \begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
   \item[Incidente de origen]
-    El 4 de octubre de 2021, un comando de mantenimiento desconectó
-    la red interna de los centros de datos de Meta. Una falla en la
-    herramienta que revisaba esos comandos impidió detenerlo. Después,
-    los servidores DNS dejaron de anunciar sus rutas BGP y los
-    servicios quedaron inaccesibles\footnote{Informe de Meta:
-    \url{https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/}.}.
+    El 21 de octubre de 2018, una interrupción de conectividad de
+    43 segundos durante un mantenimiento alteró la topología de los
+    clústeres MySQL de GitHub. Para proteger la integridad de los datos,
+    GitHub pausó la entrega de \textit{webhooks} y las compilaciones de
+    Pages. Durante la recuperación se acumularon más de cinco millones
+    de eventos de \textit{webhooks}; cerca de 200\,000 cargas habían
+    superado su tiempo de vida y se descartaron al procesarlas
+    \footnote{Informe oficial de GitHub:
+    \url{https://github.blog/news-insights/company-news/oct21-post-incident-analysis/}.}.
+    El equipo de Aldair analizó este caso en FORM-AC-01
+    \footnote{Trabajo formativo:
+    \url{https://github.com/aldhair00/FORM-AC-01-EHPT}.}.
 
   \item[Relación con el SSDC]
-    Una interrupción entre los servicios del SSDC puede impedir que
-    un aviso llegue a \texttt{notificaciones}. En el esqueleto actual,
-    \texttt{convocatorias} mantiene la publicación y responde que la
-    notificación está pendiente, pero no reintenta el envío cuando
-    vuelve la comunicación.
+    El trabajo formativo relaciona los \textit{webhooks} acumulados
+    con las notificaciones del proceso de selección docente. En E1,
+    si \texttt{notificaciones} no responde, \texttt{convocatorias}
+    conserva la publicación e informa que el aviso quedó pendiente.
+    Todavía no existe una cola persistente que garantice su entrega
+    después de recuperar el servicio.
 
   \item[Probabilidad]
-    Media, como estimación cualitativa; no se dispone de una
-    frecuencia medida para el SSDC.
+    Media, como estimación cualitativa; no hay una frecuencia medida
+    para el SSDC.
 
   \item[Impacto]
-    Medio: la convocatoria puede quedar publicada mientras el aviso
-    correspondiente no llega a sus destinatarios.
+    Medio: una convocatoria puede quedar publicada sin que llegue
+    su aviso, y una interrupción prolongada podría acumular avisos.
 
   \item[Medida propuesta]
-    Conservar de forma durable los avisos pendientes y reintentarlos
-    cuando se recupere la comunicación, evitando duplicados. Esta
-    recuperación todavía no está implementada en E1.
+    Guardar los avisos pendientes de forma durable, reintentarlos
+    al recuperar el servicio y registrar los envíos fallidos o vencidos,
+    evitando duplicados. Esto no está implementado en E1.
 
   \item[Verificación]
     En E1, detener \texttt{notificaciones} y comprobar que la respuesta
-    indique \emph{pendiente}. En una etapa posterior, restablecer el
-    servicio y verificar que un aviso pendiente se entregue una sola vez.
+    distinga la convocatoria publicada del aviso pendiente. Cuando
+    se implemente la cola, comprobar que el aviso se entregue una sola
+    vez tras recuperar el servicio.
 \end{description}
