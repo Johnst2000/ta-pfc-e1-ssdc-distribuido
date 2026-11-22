@@ -97,3 +97,12 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 - Se incorporó el riesgo R1 en un archivo propio y se conservó el archivo de R4.
 
 **Commits:** `418437c`, `33b7008`, `ef81eca`, `895ef42`, `720a04f`, `239842a`, `7333b29`, `7d9299f`, `1d1ba4c`, `2a9fbd6`, `c516cc6`, `11daa69`, `a222aa6`, `d47cf90`.
+
+## 21 de noviembre de 2026 — Revisión de los ADR y video
+
+**Registrado por:** Eduardo Reinoso Vélez
+**Presentes:** Eduardo Reinoso Vélez
+
+**Trabajo realizado**
+- El ADR-001 fue revisado por el equipo CHRS y el ADR-002 por John Silva Triviño. Ambos pasan de estado «propuesto» a «aceptado» y se actualiza el campo «Revisado por».
+- Eduardo grabó su parte del video (diagramas C4 y ADR), a la espera de unirla con las partes de los demás integrantes en un único video.
