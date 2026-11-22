@@ -143,3 +143,23 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 **Problemas resueltos**
 
 - Conflictos al hacer `pull` por cambios simultáneos en `main.tex` y en la sección 14; se resolvieron con `git stash` y `pull --rebase`.
+
+## 21 de noviembre de 2026 — Esqueleto, comunicación entre servicios y riesgo R5
+
+**Registrado por:** John Silva Triviño
+**Presentes:** John Silva Triviño
+
+**Trabajo realizado**
+
+- El 19 de noviembre agregué el esqueleto de dos servicios (convocatorias y notificaciones) con sus Dockerfile y el docker-compose, y documenté cómo ejecutarlo en `src/README.md`.
+- El 20 de noviembre ejecuté el esqueleto con `docker compose up` y tomé las tres capturas de `evidencias/` (servicios en marcha, comunicación entre servicios y tolerancia a fallos). Escribí la sección 09 con el modelo de comunicación.
+- Hoy redacté el riesgo R5 (error de automatización en Google Cloud 2019) y lo incluí en `main.tex`.
+- Completé la sección 09 con una fila por cada interacción del diagrama C4 de contenedores.
+- Agregué mi tabla de aportes y mi declaración de uso de IA en la sección 14.
+- Grabé mi parte del video: el esqueleto funcionando y el porqué de HTTP síncrono con tiempo máximo de dos segundos.
+
+**Problemas resueltos**
+
+- Al actualizar el README pisé por error los cambios de Aldair; lo detecté al revisar el historial y restauré su versión.
+
+**Commits:** `e842650`, `a1bd7a8`, `b62e503`, `4c9863b`, `9f61a3f`, `4143379`, `b9d7bcc`.
