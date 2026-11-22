@@ -82,3 +82,18 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 - Se agregan los diagramas C4 de contenedores (`6ce954d`) y de contexto (`1500c83`), en `.drawio` y PNG. El de contenedores es la versión limpia del bosquejo: los servicios que guardan datos tienen su propia base PostgreSQL, la comunicación entre `convocatorias` y `notificaciones` es HTTP como en el esqueleto, y la cola de mensajes queda como componente planeado, pendiente del ADR-002.
 - Se agregan el ADR-001 y la sección 07 (`a0a01d4`), y el ADR-002 con las secciones 08 y 11 (`74ecef5`). No incluyen mediciones ni cifras de la entrevista, que no estaban en el repositorio.
 - Uso de IA: Claude (Sonnet 5.5) propuso la estructura inicial, redactó los borradores de los ADR y de las secciones 07, 08 y 11, y generó los archivos `.drawio` de los diagramas. Eduardo dibujó el bosquejo a mano, y revisó y ajustó los borradores.
+
+
+
+## 21 de noviembre de 2026 — Actualización de calidad y riesgos
+
+**Registrado por:** Joseph Calderón Saltos
+**Presentes:** Joseph Calderón Saltos
+
+**Trabajo realizado**
+- Se actualizaron los RNF-01 a RNF-06 y su trazabilidad con las entrevistas y con ISO/IEC 25010.
+- Se amplió la sección de trabajos relacionados con un cuarto estudio sobre selección docente y su referencia.
+- Se documentó el análisis CAP/PACELC para datos críticos del SSDC.
+- Se incorporó el riesgo R1 en un archivo propio y se conservó el archivo de R4.
+
+**Commits:** `418437c`, `33b7008`, `ef81eca`, `895ef42`, `720a04f`, `239842a`, `7333b29`, `7d9299f`, `1d1ba4c`, `2a9fbd6`, `c516cc6`, `11daa69`, `a222aa6`, `d47cf90`.
