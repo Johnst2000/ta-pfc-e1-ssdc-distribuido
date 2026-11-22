@@ -5,38 +5,19 @@
 \begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
   \item[Incidente de origen]
     El 28 de febrero de 2017, en la región US-EAST-1, una persona del equipo de Amazon S3 ejecutó un comando para quitar unos pocos servidores del subsistema de facturación. Uno de los parámetros estaba mal escrito y el comando quitó muchos más, entre ellos servidores de los subsistemas de índice y de colocación. S3 dejó de atender solicitudes y tardó unas 4 h 17 min en volver a la normalidad\footnote{Informe de AWS sobre el evento: \url{https://aws.amazon.com/message/41926/}.}. Después, AWS hizo que la herramienta retire capacidad más despacio y le puso un mínimo por subsistema.
+
   \item[Relación con el SSDC]
     La herramienta aceptó una entrada equivocada y la ejecutó completa, sin un tope ni una confirmación. En CHRSweb el \texttt{application.properties} del backend tiene activa la línea \texttt{spring.jpa.hibernate.ddl-auto=update} (línea 56). Con ella, Hibernate crea o altera tablas y columnas al arrancar, según las entidades, y nadie revisa ese cambio antes. No borra columnas, pero si varios servicios comparten la base, el que arranque primero puede dejar un esquema distinto del que esperan los demás.
+
   \item[Probabilidad]
     Media: cada despliegue con entidades modificadas aplica el cambio.
+
   \item[Impacto]
     Alto: el cambio llegaría a las tablas de postulaciones y de puntajes.
+
   \item[Medida en E1]
     El esqueleto no tiene base de datos (guarda los datos en memoria), así que en E1 no hay un esquema que pueda cambiar. Cuando cada servicio tenga su base (E2), Hibernate quedará en modo de solo validación y los cambios de esquema se aplicarán con scripts versionados en el repositorio.
+
   \item[Verificación]
     En E2, con la base ya creada, se arranca un servicio con una entidad incompatible a propósito; debe negarse a iniciar y mostrar el error de validación. El resultado se anota en la bitácora.
-\end{description}
-
-
-% Riesgo R1 de Joseph Calderón, basado en el incidente de Cloudflare de 2022.
-\subsection{R1: despliegue de una regla con alcance excesivo}
-
-\begin{description}[leftmargin=!,labelwidth=4.2cm,style=nextline]
-  \item[Incidente de origen]
-    El 21 de junio de 2022, Cloudflare desplegó un cambio en sus políticas de anuncios de rutas BGP. El reordenamiento de términos hizo que se retiraran prefijos críticos y dejó fuera de servicio 19 centros de datos; el incidente afectó el 50\,\% de las solicitudes HTTP globales. Cloudflare indicó que las etapas del despliegue no fueron lo bastante pequeñas para detectar el problema antes de que alcanzara los centros afectados \cite{cloudflare2022outage}.
-
-  \item[Relación con el SSDC]
-    El backend actual concentra las funciones del SSDC. Un cambio incorrecto en la matriz de méritos o en las reglas de validación podría afectar varias convocatorias y postulaciones. En la arquitectura distribuida futura, un despliegue amplio de una regla compartida también podría propagar el error a más de un servicio.
-
-  \item[Probabilidad]
-    Media, como estimación cualitativa del equipo; no corresponde a una frecuencia medida.
-
-  \item[Impacto]
-    Alto: un error podría bloquear postulaciones o producir evaluaciones incorrectas durante una convocatoria.
-
-  \item[Medida propuesta]
-    El esqueleto de E1 no implementa la matriz de méritos, por lo que esta medida aún no está implementada. Para las siguientes etapas se propone versionar las reglas, exigir revisión antes de publicarlas, probarlas automáticamente y desplegarlas por etapas con una opción de reversión.
-
-  \item[Verificación]
-    En E1, dejar documentados estos controles como propuesta. Cuando se implemente la evaluación, probar una regla inválida y comprobar que las pruebas impidan publicarla; después, verificar en un despliegue controlado que una reversión restaure la versión anterior.
 \end{description}
