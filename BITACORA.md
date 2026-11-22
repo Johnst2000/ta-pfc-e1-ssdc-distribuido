@@ -106,3 +106,4 @@ Registro de las sesiones de trabajo del equipo (fecha, integrantes presentes, de
 **Trabajo realizado**
 - El ADR-001 fue revisado por el equipo CHRS y el ADR-002 por John Silva Triviño. Ambos pasan de estado «propuesto» a «aceptado» y se actualiza el campo «Revisado por».
 - Eduardo grabó su parte del video (diagramas C4 y ADR), a la espera de unirla con las partes de los demás integrantes en un único video.
+- Sesión de diseño del equipo por llamada: estuvimos los cuatro integrantes (Joseph Calderón Saltos, Aldair Herrera Barco, Eduardo Reinoso Vélez y John Silva Triviño). Revisamos juntos el bosquejo de la arquitectura y el diagrama C4 de contenedores. Capturas: `evidencias/sesion-diseno-1-bosquejo-2026-11-21.jpeg` y `evidencias/sesion-diseno-2-c4-nivel2-2026-11-21.jpeg`.
