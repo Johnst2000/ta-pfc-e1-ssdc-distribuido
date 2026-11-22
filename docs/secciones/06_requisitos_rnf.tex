@@ -1,70 +1,119 @@
 \subsection{Requisitos no funcionales y verificación}
 
-La entrevista al Decano permite identificar como situación actual la revisión manual de hojas de vida y la asignación de puntajes en una matriz; el entrevistado señaló que esta etapa es la que más demora. También indicó que las hojas de vida deben almacenarse y que, después de la evaluación, se elaboran documentos para remitir los resultados a otras autoridades. La transcripción de la Coordinadora sugiere que los postulantes podrían cargar documentos y consultar el estado de su trámite, pero esa parte debe contrastarse con el audio porque la transcripción automática no es clara.
+La entrevista al Decano señala que revisar las hojas de vida y asignar puntajes en una matriz es la etapa que más demora. También indica que las hojas de vida deben almacenarse y que, después de la evaluación, se preparan documentos para remitir los resultados a otras autoridades. La transcripción de la Coordinadora menciona la carga de documentos y la consulta del estado desde una aplicación web; ese fragmento debe confirmarse con el audio porque la transcripción automática no es clara.
 
-La entrevista no proporcionó metas de latencia, cantidad de usuarios concurrentes, disponibilidad ni tiempos de recuperación. Por ello, las cifras de la tabla son metas iniciales propuestas para el diseño y deben validarse con el equipo y, cuando sea posible, con los usuarios. No son mediciones obtenidas ni compromisos expresados por las personas entrevistadas. La clasificación utiliza características del modelo de calidad de producto ISO/IEC 25010:2023.
+Las entrevistas no especifican tiempos de respuesta, concurrencia, disponibilidad ni tiempos de recuperación. Por eso, las cifras siguientes son metas de diseño propuestas para esta entrega: no son mediciones ni valores expresados por las entrevistadas. Deben validarse con el equipo antes de considerarlas definitivas. La clasificación usa el modelo de calidad de producto ISO/IEC 25010:2023 \cite{iso25010_2023}.
 
 \begin{table}[H]
 \centering
 \footnotesize
 \caption{Requisitos de calidad propuestos y su trazabilidad}
-\begin{tabularx}{\linewidth}{@{}p{0.7cm}p{2.5cm}X p{3.2cm}p{3.2cm}@{}}
+\begin{tabularx}{\linewidth}{@{}p{0.7cm}p{2.6cm}X p{3.2cm}p{1.1cm}@{}}
 \toprule
-\textbf{ID} & \textbf{Característica ISO/IEC 25010} & \textbf{Meta inicial propuesta} & \textbf{Verificación} & \textbf{Relación con la entrevista} \\
+\textbf{ID} & \textbf{Característica ISO/IEC 25010} &
+\textbf{Meta inicial propuesta} & \textbf{Verificación} & \textbf{Evidencia} \\
 \midrule
-RNF-01 & Eficiencia de desempeño &
-Con hasta 50 sesiones concurrentes, al menos el 95\,\% de las consultas de estado y visualización de matrices responderá en un máximo de 300\,ms, excluyendo la carga de archivos. &
-Ejecutar una prueba de carga con 50 sesiones y calcular el percentil 95 de los tiempos de respuesta. Registrar configuración y resultados. &
-El Decano indicó que revisar las hojas de vida y asignar puntajes es la etapa más demorada. La entrevista no fijó el umbral de 300\,ms ni la concurrencia; son metas propuestas. \\
+RNF-01 & Eficiencia de desempeño: comportamiento temporal &
+Con hasta 50 sesiones concurrentes, al menos el 95\,\% de las consultas de estado y visualización de matrices responderá en un máximo de 300\,ms. Se excluye la carga de archivos. &
+Ejecutar una prueba con 50 sesiones y calcular el percentil 95 de respuesta; registrar el entorno y los resultados. &
+D-01 \\
 
 RNF-02 & Seguridad: confidencialidad y autenticidad &
-El 100\,\% de las rutas que entregan hojas de vida, puntajes o estados protegidos exigirá una identidad y un rol autorizado. El repositorio de entrega contendrá cero credenciales o secretos. &
-Probar cada ruta protegida sin credenciales y con un rol no autorizado; ambas solicitudes deben rechazarse. Revisar el repositorio en busca de secretos antes de la entrega. &
-El proceso utiliza hojas de vida y puntajes. La entrevista confirma su manejo, pero no define roles técnicos ni el mecanismo de autenticación; estos son requisitos de diseño. \\
+El 100\,\% de las rutas que entregan hojas de vida, puntajes o estados protegidos requerirá identidad y rol autorizado. El repositorio de entrega contendrá cero credenciales o secretos. &
+Probar cada ruta protegida sin credenciales y con un rol no autorizado; revisar también el repositorio antes de la entrega. &
+D-02 \\
 
 RNF-03 & Idoneidad funcional: corrección funcional &
-El 100\,\% de los casos de prueba de la matriz de evaluación deberá producir el puntaje esperado conforme a los criterios aprobados para la convocatoria. &
-Preparar casos de prueba con resultados esperados calculados independientemente y comparar cada resultado del sistema con la matriz aprobada. &
-El Decano explicó que se asignan puntajes según parámetros establecidos y que se usa una matriz. La entrevista no especificó una tasa de exactitud; el 100\,\% es el criterio propuesto para los casos de prueba. \\
+El 100\,\% de los casos definidos para probar la matriz deberá producir el puntaje esperado según los criterios aprobados para cada convocatoria. &
+Preparar casos de prueba con resultados esperados calculados independientemente y comparar cada resultado con la matriz aprobada. &
+D-03 \\
 
 RNF-04 & Seguridad: responsabilidad &
-El 100\,\% de los cambios de puntaje o estado registrará al responsable, la fecha y hora, el valor anterior, el nuevo valor y el motivo del cambio. &
-Realizar cambios de prueba en puntajes y estados; comprobar que cada evento de auditoría contiene los cinco datos requeridos. &
-La valoración se realiza entre el Decano y la Coordinación y los resultados pasan a otras autoridades. El registro de auditoría es una propuesta para dar trazabilidad a ese flujo. \\
+El 100\,\% de los cambios de puntaje o estado registrará responsable, fecha y hora, valor anterior, valor nuevo y motivo. &
+Realizar cambios de prueba y comprobar que cada evento de auditoría contenga los cinco datos. &
+D-03 \\
 
 RNF-05 & Fiabilidad: recuperabilidad &
 El 100\,\% de las hojas de vida y evaluaciones confirmadas deberá seguir disponible después de reiniciar el servicio que las almacena. &
-Crear registros de prueba, confirmar su guardado, reiniciar el servicio y consultar nuevamente todos los registros. &
-El Decano indicó que las hojas de vida deben almacenarse y que los puntajes alimentan la evaluación. La entrevista no detalló tecnología ni política de respaldo. \\
+Guardar registros de prueba, reiniciar el servicio y consultar nuevamente todos los registros. &
+D-02 \\
 
 RNF-06 & Capacidad de interacción: operabilidad &
-Al menos 4 de 5 usuarios de prueba completarán la carga de documentos y la consulta del estado en un máximo de 5 minutos, sin ayuda del equipo. &
-Observar una prueba con cinco usuarios representativos; registrar tiempo, finalización y solicitudes de ayuda para cada tarea. &
-La transcripción de la Coordinadora sugiere carga de documentos y consulta del estado desde una aplicación web. La formulación es preliminar y debe verificarse contra el audio. \\
+Al menos 4 de 5 usuarios de prueba completará la carga de documentos y la consulta del estado en un máximo de 5 minutos, sin ayuda del equipo. &
+Observar una prueba con cinco usuarios representativos y registrar el tiempo, la finalización y las solicitudes de ayuda. &
+C-01 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Trazabilidad con las entrevistas}
+
+Los siguientes fragmentos se tomaron de las transcripciones automáticas de los audios. Las transcripciones no incluyen marcas de tiempo; por eso se identifica cada fuente por su archivo. El fragmento C-01 requiere confirmación directa con el audio antes de utilizarlo como evidencia definitiva.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Fragmentos utilizados para relacionar entrevistas y requisitos}
+\begin{tabularx}{\linewidth}{@{}p{0.8cm}p{3.1cm}X p{1.8cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Fuente} & \textbf{Fragmento de transcripción} & \textbf{RNF relacionado} \\
+\midrule
+D-01 & \nolinkurl{evidencias/Decano.m4a} &
+\enquote{Lo que más tiempo toma obviamente es examinar la hoja de vida.} &
+RNF-01 \\
+
+D-02 & \nolinkurl{evidencias/Decano.m4a} &
+\enquote{La hoja de vida tiene que estar almacenada.} &
+RNF-02, RNF-05 \\
+
+D-03 & \nolinkurl{evidencias/Decano.m4a} &
+El Decano describe la asignación de puntajes con una matriz y la preparación posterior de un acta y un oficio. &
+RNF-03, RNF-04 \\
+
+C-01 & \nolinkurl{evidencias/Coordinadora p1.m4a} &
+La transcripción menciona que el postulante puede enviar documentos y consultar el estado del trámite. Este fragmento está pendiente de confirmación con el audio. &
+RNF-06 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsubsection{Estado preliminar de verificación}
 
-Las metas anteriores aún no se han medido. El esqueleto implementado solo permite comprobar parte del manejo de fallos entre \texttt{convocatorias} y \texttt{notificaciones}; las funciones de postulaciones, evaluación, auditoría y almacenamiento persistente están planeadas y no forman parte del esqueleto actual.
+Las metas anteriores todavía no se han medido. En el esqueleto actual, las funciones de postulaciones, evaluación, auditoría y almacenamiento persistente están planeadas, no implementadas.
 
 \begin{table}[H]
 \centering
 \small
 \caption{Estado de verificación de los requisitos de calidad}
-\begin{tabularx}{\linewidth}{@{}p{1cm}p{2cm}XX@{}}
+\begin{tabularx}{\linewidth}{@{}p{1cm}p{1.6cm}XX@{}}
 \toprule
 \textbf{ID} & \textbf{Estado} & \textbf{Evidencia actual} & \textbf{Siguiente comprobación} \\
 \midrule
-RNF-01 & Pendiente & No se documenta una prueba de carga con 50 sesiones concurrentes. & Ejecutar la prueba de carga y contrastar el percentil 95 con la meta propuesta. \\
-RNF-02 & Pendiente & El modelo de comunicación indica que no hay autenticación entre los servicios del esqueleto. & Definir los roles y el mecanismo de acceso; probar las rutas protegidas y revisar que no haya secretos en el repositorio. \\
-RNF-03 & Pendiente & El esqueleto no implementa la matriz de evaluación del proceso de selección. & Acordar los criterios de la matriz y comprobar los casos de prueba con resultados calculados independientemente. \\
-RNF-04 & Pendiente & La auditoría aparece como un servicio planeado; no se documenta un registro de cambios implementado. & Implementar o especificar el registro y comprobar los campos requeridos para cada cambio. \\
-RNF-05 & Pendiente & El servicio de notificaciones conserva sus datos en memoria; el esqueleto no implementa el almacenamiento de hojas de vida ni evaluaciones. & Definir almacenamiento persistente y verificar la recuperación tras reiniciar el servicio correspondiente. \\
-RNF-06 & Pendiente & No se documentan pruebas de interacción con postulantes. & Probar la carga y consulta de estado con cinco usuarios representativos y registrar los resultados. \\
+RNF-01 & Pendiente &
+No se documenta una prueba con 50 sesiones concurrentes. &
+Ejecutar la prueba de carga y contrastar el percentil 95 con la meta propuesta. \\
+
+RNF-02 & Pendiente &
+El modelo de comunicación indica que no hay autenticación entre los servicios del esqueleto. &
+Definir los roles y el mecanismo de acceso; probar las rutas protegidas y revisar el repositorio. \\
+
+RNF-03 & Pendiente &
+El esqueleto no implementa la matriz de evaluación del proceso de selección. &
+Acordar los criterios y probar los casos con resultados calculados independientemente. \\
+
+RNF-04 & Pendiente &
+La auditoría aparece como un servicio planeado; no se documenta un registro implementado. &
+Implementar o especificar el registro y verificar los campos de cada cambio. \\
+
+RNF-05 & Pendiente &
+El servicio de notificaciones conserva datos en memoria; no se documenta almacenamiento de hojas de vida ni evaluaciones. &
+Definir el almacenamiento y comprobar la recuperación después de reiniciar el servicio correspondiente. \\
+
+RNF-06 & Pendiente &
+No se documentan pruebas de interacción con postulantes; el fragmento de la Coordinadora requiere revisión. &
+Confirmar el fragmento con el audio y ejecutar la prueba con cinco usuarios representativos. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Los estados describen la evidencia disponible en el esqueleto de esta entrega; no significan que las metas propuestas ya se hayan alcanzado. Las metas numéricas deben revisarse y aprobarse antes de tratarlas como requisitos acordados.
+El estado describe la evidencia disponible en el esqueleto de esta entrega; no significa que las metas propuestas ya se hayan alcanzado.
